@@ -1,32 +1,33 @@
 package ar.edu.unq.spring.service.impl;
 
+import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.persistence.PacienteDAO;
 import ar.edu.unq.spring.service.interfaces.PacienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
 @Transactional
 public class PacienteServiceImpl implements PacienteService {
 
-    private PacienteDAO pacienteDAO = null;
-    public PacienteServiceImpl(PacienteDAO personajeDAO) {
-        this.pacienteDAO = pacienteDAO;
+    @Autowired
+    private PacienteDAO pacienteDAO;
+
+    @Override
+    public List<Paciente> allPacientes() {
+        return pacienteDAO.findAll();
+    }
+    @Override
+    public void guardarPaciente(Paciente paciente) {
     }
 
     @Override
-    public Set<Paciente> allPersonajes() {
-        return Set.of();
-    }
-    @Override
-    public void guardarPersonaje(Paciente paciente) {
-    }
-
-    @Override
-    public Paciente recuperarPersonaje(Long personajeId) {
+    public Paciente recuperarPaciente(Long pacienteId) {
         return null;
     }
 

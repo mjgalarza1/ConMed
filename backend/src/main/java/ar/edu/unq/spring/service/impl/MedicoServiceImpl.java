@@ -1,0 +1,38 @@
+package ar.edu.unq.spring.service.impl;
+
+import ar.edu.unq.spring.modelo.Medico;
+import ar.edu.unq.spring.persistence.MedicoDAO;
+import ar.edu.unq.spring.persistence.PacienteDAO;
+import ar.edu.unq.spring.service.interfaces.MedicoService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class MedicoServiceImpl implements MedicoService {
+
+    private MedicoDAO medicoDAO = null;
+    public MedicoServiceImpl(PacienteDAO personajeDAO) {
+        this.medicoDAO = medicoDAO;
+    }
+
+    @Override
+    public List<Medico> allMedicos() {
+        return medicoDAO.findAll();
+    }
+    @Override
+    public Medico guardarMedico(Medico medico) {
+        return medico;
+    }
+
+    @Override
+    public Medico recuperarMedico(Long medicoId) {
+        return null;
+    }
+
+    @Override
+    public void clearAll() {
+    }
+}
