@@ -15,5 +15,9 @@ public final class AdministradorControllerREST {
     public void agregarMedico(@RequestBody MedicoDTO medico) {
         administradorService.agregarMedico(medico.aModelo());
     }
+    @DeleteMapping("/{id}")
+    public void quitarMedico(@PathVariable Long medicoId) {
+        administradorService.quitarMedico(medicoId);
+    }
 
 }

@@ -37,4 +37,9 @@ public class MedicoServiceImpl implements MedicoService {
     public void clearAll() {
         medicoDAO.deleteAll();
     }
+
+    @Override
+    public void eliminarMedico(Long medicoId) {
+        medicoDAO.deleteById(medicoId);
+    }
 }

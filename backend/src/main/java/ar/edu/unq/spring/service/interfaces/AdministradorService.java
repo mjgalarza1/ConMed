@@ -12,4 +12,6 @@ public interface AdministradorService {
     void clearAll();
 
     Medico agregarMedico(Medico medico);
+
+    void quitarMedico(Long medicoId);
 }

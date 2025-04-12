@@ -55,7 +55,15 @@ public class AdministradorServiceTest {
         Medico medico = new Medico("Juan", "Se", "Odontologo", "ABC123");
         Long id = administradorService.agregarMedico(medico).getId();
         Assertions.assertEquals(id, medicoService.recuperarMedico(id).getId());
+    }
 
+    @Test
+    public void testQuitarMedico(){
+        Medico medico = new Medico("Juan", "Se", "Odontologo", "ABC123");
+        Long id = administradorService.agregarMedico(medico).getId();
+        Assertions.assertEquals(1, medicoService.allMedicos().size());
+        administradorService.quitarMedico(id);
+        Assertions.assertEquals(0, medicoService.allMedicos().size());
     }
 
     @AfterEach
