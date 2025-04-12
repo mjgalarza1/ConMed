@@ -4,19 +4,19 @@ import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.persistence.MedicoDAO;
 import ar.edu.unq.spring.persistence.PacienteDAO;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
 public class MedicoServiceImpl implements MedicoService {
 
-    private MedicoDAO medicoDAO = null;
-    public MedicoServiceImpl(PacienteDAO personajeDAO) {
-        this.medicoDAO = medicoDAO;
-    }
+    @Autowired
+    private MedicoDAO medicoDAO;
 
     @Override
     public List<Medico> allMedicos() {
@@ -24,15 +24,22 @@ public class MedicoServiceImpl implements MedicoService {
     }
     @Override
     public Medico guardarMedico(Medico medico) {
-        return medico;
+        return medicoDAO.save(medico);
     }
 
     @Override
     public Medico recuperarMedico(Long medicoId) {
-        return null;
+        return medicoDAO.findById(medicoId)
+                .orElseThrow(() -> new NoSuchElementException("Medico not found with id: " + medicoId));
     }
 
     @Override
     public void clearAll() {
+        medicoDAO.deleteAll();
+    }
+
+    @Override
+    public void eliminarMedico(Long medicoId) {
+        medicoDAO.deleteById(medicoId);
     }
 }
