@@ -9,5 +9,6 @@ public interface MedicoService {
     Medico guardarMedico(Medico medico);
     Medico recuperarMedico(Long medicoId);
     void clearAll();
+    void eliminarMedico(Long medicoId);
 
 }

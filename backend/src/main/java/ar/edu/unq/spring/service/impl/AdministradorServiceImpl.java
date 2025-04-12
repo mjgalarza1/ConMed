@@ -44,4 +44,9 @@ public class AdministradorServiceImpl implements AdministradorService {
     public Medico agregarMedico(Medico medico) {
         return medicoService.guardarMedico(medico);
     }
+
+    @Override
+    public void quitarMedico(Long medicoId) {
+        medicoService.eliminarMedico(medicoId);
+    }
 }
