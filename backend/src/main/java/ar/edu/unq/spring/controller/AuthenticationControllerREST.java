@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.controller;
 
+import ar.edu.unq.spring.controller.dto.CreatePacienteDTO;
 import ar.edu.unq.spring.jwt.modelo.AuthenticationResponse;
 import ar.edu.unq.spring.jwt.service.AuthenticationService;
 import ar.edu.unq.spring.modelo.Usuario;
@@ -15,6 +16,11 @@ public class AuthenticationControllerREST {
 
     public AuthenticationControllerREST(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
+    }
+
+    @PostMapping("/registrarPaciente")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody CreatePacienteDTO request) {
+        return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/login")
