@@ -11,23 +11,23 @@ import lombok.*;
 @Entity
 public class Medico {
 
-    public Medico(String nombre, String apellido, String especialidad, String matricula) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.especialidad = especialidad;
-        this.matricula = matricula;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long idMedico;
+    @Column(nullable = false, unique = true)
+    private String dni;
     @Column(nullable = false, length = 500, unique = true)
     private String nombre;
-
     private String apellido;
     private String especialidad;
     private String matricula;
 
+    public Medico(String nombre, String apellido, String dni, String especialidad, String matricula) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.especialidad = especialidad;
+        this.matricula = matricula;
+    }
 
 }

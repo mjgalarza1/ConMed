@@ -26,8 +26,8 @@ public class AdministradorServiceTest {
 
     @BeforeEach
     public void setUp() {
-        admin1 = new Administrador("admin1");
-        admin2 = new Administrador("admin2");
+        admin1 = new Administrador("admin1", "11111111");
+        admin2 = new Administrador("admin2", "22222222");
     }
 
     @Test
@@ -39,28 +39,28 @@ public class AdministradorServiceTest {
 
     @Test
     public void testGuardarAdministrador(){
-        Long id = administradorService.guardarAdministrador(admin1).getId();
-        Assertions.assertEquals(id, administradorService.recuperarAdministrador(id).getId());
+        Long id = administradorService.guardarAdministrador(admin1).getIdAdmin();
+        Assertions.assertEquals(id, administradorService.recuperarAdministrador(id).getIdAdmin());
     }
 
     @Test
     public void testRecuperarAdministrador(){
-        Long id = administradorService.guardarAdministrador(admin1).getId();
+        Long id = administradorService.guardarAdministrador(admin1).getIdAdmin();
         String nombre = administradorService.recuperarAdministrador(id).getNombre();
         Assertions.assertEquals("admin1", nombre);
     }
 
     @Test
     public void testAgregarMedico(){
-        Medico medico = new Medico("Juan", "Se", "Odontologo", "ABC123");
-        Long id = administradorService.agregarMedico(medico).getId();
-        Assertions.assertEquals(id, medicoService.recuperarMedico(id).getId());
+        Medico medico = new Medico("Juan", "Se", "33333333", "Odontologo", "ABC123");
+        Long id = administradorService.agregarMedico(medico).getIdMedico();
+        Assertions.assertEquals(id, medicoService.recuperarMedico(id).getIdMedico());
     }
 
     @Test
     public void testQuitarMedico(){
-        Medico medico = new Medico("Juan", "Se", "Odontologo", "ABC123");
-        Long id = administradorService.agregarMedico(medico).getId();
+        Medico medico = new Medico("Juan", "Se", "33333333", "Odontologo", "ABC123");
+        Long id = administradorService.agregarMedico(medico).getIdMedico();
         Assertions.assertEquals(1, medicoService.allMedicos().size());
         administradorService.quitarMedico(id);
         Assertions.assertEquals(0, medicoService.allMedicos().size());
