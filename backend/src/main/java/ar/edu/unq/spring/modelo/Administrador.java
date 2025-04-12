@@ -10,12 +10,15 @@ import lombok.*;
 @Entity
 public class Administrador {
 
-    public Administrador(String nombre){
-        this.nombre = nombre;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idAdmin;
+    @Column(nullable = false, unique = true)
+    private String dni;
     private String nombre;
+
+    public Administrador(String nombre, String dni){
+        this.nombre = nombre;
+        this.dni = dni;
+    }
 }
