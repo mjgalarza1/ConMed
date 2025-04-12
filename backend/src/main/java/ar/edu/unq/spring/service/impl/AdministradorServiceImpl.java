@@ -25,8 +25,8 @@ public class AdministradorServiceImpl implements AdministradorService {
     }
 
     @Override
-    public void guardarAdministrador(Administrador administrador) {
-        this.administradorDAO.save(administrador);
+    public Administrador guardarAdministrador(Administrador administrador) {
+        return this.administradorDAO.save(administrador);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AdministradorServiceImpl implements AdministradorService {
 
     @Override
     public void clearAll() {
-
+        administradorDAO.deleteAll();
     }
 
     @Override

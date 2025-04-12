@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AdministradorService {
     List<Administrador> allAdministradores();
-    void guardarAdministrador(Administrador administrador);
+    Administrador guardarAdministrador(Administrador administrador);
     Administrador recuperarAdministrador(Long administradorId);
     void clearAll();
 

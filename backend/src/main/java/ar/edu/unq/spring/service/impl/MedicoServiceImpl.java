@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -28,10 +29,12 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     public Medico recuperarMedico(Long medicoId) {
-        return null;
+        return medicoDAO.findById(medicoId)
+                .orElseThrow(() -> new NoSuchElementException("Medico not found with id: " + medicoId));
     }
 
     @Override
     public void clearAll() {
+        medicoDAO.deleteAll();
     }
 }
