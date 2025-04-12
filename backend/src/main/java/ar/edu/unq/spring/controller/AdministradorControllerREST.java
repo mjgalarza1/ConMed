@@ -15,4 +15,5 @@ public final class AdministradorControllerREST {
     public void agregarMedico(@RequestBody MedicoDTO medico) {
         administradorService.agregarMedico(medico.aModelo());
     }
+
 }
