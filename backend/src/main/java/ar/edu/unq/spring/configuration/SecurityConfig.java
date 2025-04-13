@@ -37,7 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/","/login/**", "/registrarPaciente/**")
                                 .permitAll()
                                 // INICIO DE EJEMPLOS DE MUESTRA
-                                .requestMatchers("/pacienteDemo/**")
+                                .requestMatchers("/pacienteDemo/**", "/paciente/**")
                                 .hasAuthority("PACIENTE")
                                 .requestMatchers("/medicoDemo/**")
                                 .hasAuthority("MEDICO")
