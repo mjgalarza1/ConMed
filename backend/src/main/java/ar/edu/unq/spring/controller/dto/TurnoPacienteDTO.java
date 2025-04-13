@@ -11,13 +11,18 @@ import java.time.LocalTime;
 
 public record TurnoPacienteDTO(Long medicoId, LocalDate fecha,
                                @Schema(type = "string", example = "10:00")
-                       @JsonFormat(pattern = "HH:mm") LocalTime hora) {
+                       @JsonFormat(pattern = "HH:mm") LocalTime hora,
+                               String especialidad,
+                               String nombreMedico) {
 
     public static TurnoPacienteDTO desdeModelo(Turno turno) {
         return new TurnoPacienteDTO(
                 turno.getMedico().getIdMedico(),
                 turno.getFecha(),
-                turno.getHora()
+                turno.getHora(),
+                turno.getMedico().getEspecialidad(),
+                turno.getMedico().getNombreCompleto()
+
         );
     }
 
@@ -25,7 +30,9 @@ public record TurnoPacienteDTO(Long medicoId, LocalDate fecha,
         return new TurnoPacienteDTO(
                 turno.getMedico().getIdMedico(),
                 turno.getFecha(),
-                turno.getHora()
+                turno.getHora(),
+                turno.getMedico().getEspecialidad(),
+                turno.getMedico().getNombreCompleto()
         );
     }
 
