@@ -7,7 +7,8 @@ import java.util.List;
 public interface MedicoService {
     List<Medico> allMedicos();
     Medico guardarMedico(Medico medico);
-    Medico recuperarMedico(Long medicoId);
+    Medico recuperarMedicoPorId(Long medicoId);
+    void actualizarMedico(Long medicoId, Medico medicoActualizado);
     void clearAll();
     void eliminarMedico(Long medicoId);
 

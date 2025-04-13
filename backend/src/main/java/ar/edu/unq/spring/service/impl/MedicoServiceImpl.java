@@ -28,9 +28,25 @@ public class MedicoServiceImpl implements MedicoService {
     }
 
     @Override
-    public Medico recuperarMedico(Long medicoId) {
-        return medicoDAO.findById(medicoId)
-                .orElseThrow(() -> new NoSuchElementException("Medico not found with id: " + medicoId));
+    public Medico recuperarMedicoPorId(Long medicoId) {
+        if (medicoId == null)
+            throw new RuntimeException("ID invalido");
+        return this.medicoDAO.findById(medicoId).orElseThrow(() -> new RuntimeException("No existe ningun medico con este ID!"));
+    }
+
+    public void actualizarMedico(Long medicoId, Medico medicoActualizado) {
+        if(medicoId == null)
+            throw new RuntimeException("ID invalido");
+
+        Medico medicoNuevo = this.medicoDAO.findById(medicoId)
+                .orElseThrow(() -> new RuntimeException("No existe ningun Medico con este ID"));
+
+        medicoNuevo.setNombre(medicoActualizado.getNombre());
+        medicoNuevo.setApellido(medicoActualizado.getApellido());
+        medicoNuevo.setEspecialidad(medicoActualizado.getEspecialidad());
+        medicoNuevo.setMatricula(medicoActualizado.getMatricula());
+
+        this.medicoDAO.save(medicoNuevo);
     }
 
     @Override

@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface PacienteService {
     List<Paciente> allPacientes();
-    void guardarPaciente(Paciente paciente);
-    Paciente recuperarPaciente(Long paceinteId);
-
+    Paciente guardarPaciente(Paciente paciente);
+    Paciente recuperarPacientePorId(Long paceinteId);
+    void actualizarPaciente(Long pacienteId, Paciente pacienteNuevo);
+    void eliminarPaciente(Long pacienteId);
     void clearAll();
 }

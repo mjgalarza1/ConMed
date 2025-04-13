@@ -3,6 +3,8 @@ package ar.edu.unq.spring.modelo;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @ToString
@@ -22,6 +24,10 @@ public class Medico {
     private String especialidad;
     private String matricula;
 
+    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private Set<Turno> turnos;
+
     public Medico(String nombre, String apellido, String dni, String especialidad, String matricula) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,5 +35,8 @@ public class Medico {
         this.especialidad = especialidad;
         this.matricula = matricula;
     }
+
+
+    public String getNombreCompleto(){return this.nombre + " " + this.apellido;}
 
 }
