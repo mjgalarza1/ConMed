@@ -1,13 +1,17 @@
 package ar.edu.unq.spring.controller;
 
+import ar.edu.unq.spring.controller.dto.MedicoDTO;
 import ar.edu.unq.spring.controller.dto.PacienteDTO;
+import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Paciente;
+import ar.edu.unq.spring.service.interfaces.MedicoService;
 import ar.edu.unq.spring.service.interfaces.PacienteService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,9 +21,11 @@ import java.util.stream.Collectors;
 public class PacienteControllerREST {
 
     private final PacienteService pacienteService;
+    private final MedicoService medicoService;
 
-    public PacienteControllerREST(PacienteService pacienteService) {
+    public PacienteControllerREST(PacienteService pacienteService, MedicoService medicoService) {
         this.pacienteService = pacienteService;
+        this.medicoService = medicoService;
     }
 
     @PostMapping
@@ -54,5 +60,12 @@ public class PacienteControllerREST {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         pacienteService.eliminarPaciente(id);
+    }
+
+    @GetMapping("/verMedicos")
+    public ResponseEntity<List<MedicoDTO>> verMedicos() {
+        List<Medico> medicos = medicoService.allMedicos();
+        List<MedicoDTO> medicosDTO = medicos.stream().map(MedicoDTO::desdeModelo).toList();
+        return ResponseEntity.ok(medicosDTO);
     }
 }
