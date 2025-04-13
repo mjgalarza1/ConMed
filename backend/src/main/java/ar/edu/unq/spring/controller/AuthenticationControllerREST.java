@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unq.spring.controller.utils.Validator;
+
 @RestController
 public class AuthenticationControllerREST {
 
@@ -20,11 +22,13 @@ public class AuthenticationControllerREST {
 
     @PostMapping("/registrarPaciente")
     public ResponseEntity<AuthenticationResponse> registrarPaciente(@RequestBody CreatePacienteDTO request) {
-        return ResponseEntity.ok(authenticationService.register(request));
+        Validator.getInstance().validarCreatePacienteDTO(request);
+        return ResponseEntity.ok(authenticationService.registrarPaciente(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody Usuario request) {
+        Validator.getInstance().validarUsuarioLogin(request);
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }

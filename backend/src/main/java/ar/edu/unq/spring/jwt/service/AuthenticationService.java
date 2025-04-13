@@ -7,7 +7,10 @@ import ar.edu.unq.spring.modelo.Role;
 import ar.edu.unq.spring.modelo.Usuario;
 import ar.edu.unq.spring.persistence.PacienteDAO;
 import ar.edu.unq.spring.persistence.UsuarioDAO;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,14 +32,20 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthenticationResponse register(CreatePacienteDTO request) {
+    public AuthenticationResponse registrarPaciente(CreatePacienteDTO request) {
         // CREAR Y GUARDAR USUARIO EN BASE DE DATOS
         Usuario usuario = new Usuario();
         usuario.setDni(request.dni());
         usuario.setRole(Role.PACIENTE);
         String encodedPassword = passwordEncoder.encode(request.passwordPaciente());
         usuario.setPassword(encodedPassword);
-        usuario = usuarioDAO.save(usuario);
+
+        try {
+            usuario = usuarioDAO.save(usuario);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("No se pudo registrar porque ya existe el DNI dado en sistema.");
+        }
 
         // CREAR Y GUARDAR PACIENTE EN BASE DE DATOS
         Paciente paciente = new Paciente(request.nombre(), request.dni(), encodedPassword);
@@ -47,12 +56,18 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(Usuario request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        }
+        catch (BadCredentialsException | InternalAuthenticationServiceException e) {
+            throw new IllegalArgumentException("DNI o contraseña incorrectos.");
+        }
+
 
         Usuario usuario = usuarioDAO.findByDni(request.getDni());
         String token = jwtService.generateToken(usuario);
