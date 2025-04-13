@@ -1,6 +1,7 @@
 package ar.edu.unq.spring.modelo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
+    @Size(min = 8, message = "El DNI debe tener al menos 8 caracteres")
     @Column(nullable = false, unique = true)
     private String dni;
     @Column(nullable = false)
