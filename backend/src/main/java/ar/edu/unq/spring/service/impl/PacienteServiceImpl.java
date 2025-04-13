@@ -23,15 +23,38 @@ public class PacienteServiceImpl implements PacienteService {
         return pacienteDAO.findAll();
     }
     @Override
-    public void guardarPaciente(Paciente paciente) {
+    public Paciente guardarPaciente(Paciente paciente) {
+        return pacienteDAO.save(paciente);
     }
 
     @Override
-    public Paciente recuperarPaciente(Long pacienteId) {
-        return null;
+    public Paciente recuperarPacientePorId(Long paceinteId) {
+        if (paceinteId == null)
+            throw new RuntimeException("ID invalido");
+        return this.pacienteDAO.findById(paceinteId).orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID!"));
+    }
+
+    @Override
+    public void actualizarPaciente(Long pacienteId, Paciente pacienteActualizado) {
+        if(pacienteId == null)
+            throw new RuntimeException("ID invalido");
+
+        Paciente pacienteNuevo = this.pacienteDAO.findById(pacienteId)
+                .orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID"));
+
+        pacienteNuevo.setNombre(pacienteActualizado.getNombre());
+        pacienteNuevo.setTurnos(pacienteActualizado.getTurnos());
+
+        this.pacienteDAO.save(pacienteNuevo);
+    }
+
+    @Override
+    public void eliminarPaciente(Long pacienteId) {
+        pacienteDAO.deleteById(pacienteId);
     }
 
     @Override
     public void clearAll() {
+        pacienteDAO.deleteAll();
     }
 }

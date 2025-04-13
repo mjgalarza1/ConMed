@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.Set;
+
 @Setter
 @Getter
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 
 @Entity
 public class Paciente {
@@ -32,4 +34,8 @@ public class Paciente {
         this.dni = dni;
         this.passwordPaciente = passwordPaciente;
     }
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = false,fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private Set<Turno> turnos;
 }
