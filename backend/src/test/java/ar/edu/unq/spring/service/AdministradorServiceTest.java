@@ -4,7 +4,6 @@ import ar.edu.unq.spring.modelo.Administrador;
 import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.service.interfaces.AdministradorService;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
-import ar.edu.unq.spring.service.interfaces.PacienteService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +53,7 @@ public class AdministradorServiceTest {
     public void testAgregarMedico(){
         Medico medico = new Medico("Juan", "Se", "33333333", "Odontologo", "ABC123");
         Long id = administradorService.agregarMedico(medico).getIdMedico();
-        Assertions.assertEquals(id, medicoService.recuperarMedico(id).getIdMedico());
+        Assertions.assertEquals(id, medicoService.recuperarMedicoPorId(id).getIdMedico());
     }
 
     @Test

@@ -15,6 +15,14 @@ public record PacienteDTO(Long id, String nombre, String dni) {
     public Paciente aModelo() {
         Paciente paciente = new Paciente(this.nombre, this.dni);
         paciente.setIdPaciente(this.id);
-        return null;
+        return paciente;
+    }
+
+    public Paciente aModeloUpdate(Long id) {
+        Paciente paciente = new Paciente();
+        paciente.setIdPaciente(id);
+        paciente.setNombre(this.nombre);
+
+        return paciente;
     }
 }
