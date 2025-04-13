@@ -7,8 +7,11 @@ const axiosService = axios.create({
     },
 });
 
-export const greetings = () => {
+// USUARIOS
 
-    return axios.get('/', {})
+export const login = (dni, password) => {
+    return axiosService
+        .post('/login', { dni, password });
+};
 
-}
+
