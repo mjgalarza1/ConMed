@@ -14,9 +14,9 @@ public record CreatePacienteDTO(Long id, String nombre, String dni, String passw
         );
     }
 
-    public Administrador aModelo() {
+    public Paciente aModelo() {
         Paciente paciente = new Paciente(this.nombre, this.dni, this.passwordPaciente);
         paciente.setIdPaciente(this.id);
-        return null;
+        return paciente;
     }
 }
