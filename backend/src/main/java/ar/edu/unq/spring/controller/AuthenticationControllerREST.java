@@ -19,7 +19,7 @@ public class AuthenticationControllerREST {
     }
 
     @PostMapping("/registrarPaciente")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody CreatePacienteDTO request) {
+    public ResponseEntity<AuthenticationResponse> registrarPaciente(@RequestBody CreatePacienteDTO request) {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
