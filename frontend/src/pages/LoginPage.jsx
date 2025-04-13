@@ -12,7 +12,7 @@ const LoginPage = () => {
             navigate("/");
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
-            alert("Credenciales inválidas o error del servidor.");
+            alert(error.response.data);
         }
     };
 
