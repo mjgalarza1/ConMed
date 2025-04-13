@@ -14,4 +14,7 @@ export const login = (dni, password) => {
         .post('/login', { dni, password });
 };
 
-
+export const register = (nombre, dni, passwordPaciente) => {
+    return axiosService
+        .post('/registrarPaciente', { nombre, dni, passwordPaciente });
+};

@@ -31,7 +31,7 @@ function HomePage() {
                         <Button variant="outline-primary" size="lg" className="w-100" onClick={() => navigate("/login")}>
                             Iniciar sesión
                         </Button>
-                        <Button variant="primary" size="lg" className="w-100" disabled>
+                        <Button variant="primary" size="lg" className="w-100" onClick={() => navigate("/register")}>
                             Registrarse
                         </Button>
                     </div>
