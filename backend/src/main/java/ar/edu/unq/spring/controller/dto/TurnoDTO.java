@@ -30,7 +30,7 @@ public record TurnoDTO(Long idTurno, Long medicoId, LocalDate fecha,
         turno.setHora(this.hora);
         turno.setFecha(this.fecha);
         turno.setDisponibilidad(this.disponibilidad);
-
+        turno.setId(this.idTurno);
         return turno;
     }
 }

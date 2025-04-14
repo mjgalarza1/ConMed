@@ -3,6 +3,7 @@ package ar.edu.unq.spring.controller;
 import ar.edu.unq.spring.controller.dto.MedicoDTO;
 import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
+import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,8 @@ public class MedicoControllerREST {
     @PostMapping("/agregarTurno")
     public ResponseEntity<?> agregarTurno(@RequestBody TurnoDTO turnoDTO) {
         Medico medico = medicoService.recuperarMedicoPorId(turnoDTO.medicoId());
-        medicoService.agregarTurno(turnoDTO.aModelo(medico));
-        return ResponseEntity.status(HttpStatus.CREATED).body(turnoDTO);
+        TurnoDTO nuevoTurno = medicoService.agregarTurno(turnoDTO.aModelo(medico));
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoTurno);
     }
 
     @DeleteMapping("/{id}")

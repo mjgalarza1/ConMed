@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.service.interfaces;
 
+import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Turno;
 
@@ -12,6 +13,6 @@ public interface MedicoService {
     void actualizarMedico(Long medicoId, Medico medicoActualizado);
     void clearAll();
     void eliminarMedico(Long medicoId);
-    String agregarTurno(Turno turno);
+    TurnoDTO agregarTurno(Turno turno);
 
 }

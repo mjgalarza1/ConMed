@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.service.impl;
 
+import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.persistence.MedicoDAO;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -54,9 +57,29 @@ public class MedicoServiceImpl implements MedicoService {
         this.medicoDAO.save(medicoNuevo);
     }
 
-    public String agregarTurno(Turno turno) {
-        turnoService.crearTurno(turno);
-        return "Turno agregado";
+    public TurnoDTO agregarTurno(Turno turno) {
+        if (turno == null) {
+            throw new RuntimeException("Turno invalido");
+        }
+        if (
+                turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getHora() == turno.getHora())
+                && turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getFecha() == turno.getFecha())
+        ) {
+            throw new RuntimeException("No se puede agregar el turno porque ya existe un turno con la misma fecha y hora que las dadas");
+        }
+        LocalDate fechaActual = LocalDate.now();
+        LocalTime horaActual = LocalTime.now();
+        if (
+                turno.getFecha().isBefore(fechaActual)
+                && turno.getHora().isBefore(horaActual)
+        ) {
+            throw new RuntimeException("No se puede agregar un turno en una fecha y hora anterior a la fecha y hora actual");
+        }
+
+        Turno nuevoTurno = turnoService.crearTurno(turno);
+        TurnoDTO turnoDTO = new TurnoDTO(nuevoTurno.getId(), nuevoTurno.getMedico().getIdMedico() ,nuevoTurno.getFecha(), nuevoTurno.getHora(), nuevoTurno.getDisponibilidad());
+
+        return turnoDTO;
     }
 
     @Override
