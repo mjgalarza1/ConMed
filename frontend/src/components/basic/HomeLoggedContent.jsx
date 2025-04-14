@@ -15,7 +15,7 @@ function LoggedInGreeting() {
                     <Button variant="outline-primary" size="lg" onClick={() => navigate("/medicosDisponibles")}>
                         Ver médicos disponibles
                     </Button>
-                    <Button variant="outline-primary" size="lg" disabled>
+                    <Button variant="outline-primary" size="lg" onClick={() => navigate("/reservasDeTurnos")}>
                         Ver turnos reservados
                     </Button>
                 </Stack>
