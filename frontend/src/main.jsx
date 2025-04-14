@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage.jsx'
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import Layout from "./pages/Layout.jsx";
+import MedicosDisponiblesPage from "./pages/MedicosDisponiblesPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <RegisterPage />
+            },
+            {
+                path: "/medicosDisponibles",
+                element: <MedicosDisponiblesPage />
             }
         ]
     }
