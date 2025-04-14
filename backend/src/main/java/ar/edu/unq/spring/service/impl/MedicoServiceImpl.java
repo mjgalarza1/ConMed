@@ -62,8 +62,8 @@ public class MedicoServiceImpl implements MedicoService {
             throw new RuntimeException("Turno invalido");
         }
         if (
-                turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getHora() == turno.getHora())
-                && turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getFecha() == turno.getFecha())
+                turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getHora().equals(turno.getHora()))
+                && turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getFecha().equals(turno.getFecha()))
         ) {
             throw new RuntimeException("No se puede agregar el turno porque ya existe un turno con la misma fecha y hora que las dadas");
         }
