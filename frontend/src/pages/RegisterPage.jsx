@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { register } from "../services/AxiosService.js";
-import RegisterForm from "../forms/RegisterForm/RegisterForm.jsx";
+import RegisterForm from "../components/forms/RegisterForm/RegisterForm.jsx";
 
 const RegisterPage = () => {
     const navigate = useNavigate();

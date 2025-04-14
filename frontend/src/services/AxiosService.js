@@ -26,3 +26,33 @@ export const verMedicosDisponibles = () => {
         },
     });
 };
+
+export const verTurnosDisponiblesDelMedico = (idMedico) => {
+    return axiosService.get(`/turnos/medico/${idMedico}/turnosDisponibles`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const getPacienteByDni = (dniPaciente) => {
+    return axiosService.get(`/pacientes/dni/${dniPaciente}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const reservarTurno = (idPaciente, idTurno) => {
+    return axiosService.post(
+        '/turnos/reservar',
+        { idPaciente, idTurno },
+        {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        }
+    );
+};
+
+

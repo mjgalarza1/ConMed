@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import ConmedLogo from "../components/ConmedLogo.jsx";
+import ConmedLogo from "../components/basic/ConmedLogo.jsx";
 
 function Layout() {
     return (

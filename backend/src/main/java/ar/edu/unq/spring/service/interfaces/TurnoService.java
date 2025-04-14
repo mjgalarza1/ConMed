@@ -16,6 +16,7 @@ public interface TurnoService {
     Turno reservarTurno(Long pacienteId, Turno turno);
     Set<Turno> obtenerTurnoByPaciente(Long pacienteId);
     Set<Turno> obtenerTurnoByMedico(Long medicoId);
+    Set<Turno> obtenerTurnosDisponiblesDeMedicoById(Long medicoId);
 
     void clearAll();
 }
