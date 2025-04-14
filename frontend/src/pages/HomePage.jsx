@@ -1,44 +1,34 @@
 import {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import AuthPrompt from "../components/AuthPrompt.jsx";
+import LoggedInGreeting from "../components/HomeLoggedContent.jsx";
 
 function HomePage() {
-
     const [estaLogueado, setEstaLogueado] = useState(false);
+    const [cargando, setCargando] = useState(true);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem("token");
         setEstaLogueado(!!token);
+        setCargando(false);
     }, []);
 
     return (
-        <>
-            {estaLogueado
-                ?
-                <div className="d-flex justify-content-center align-items-center text-center" style={{height: '100vh'}}>
-                    <h1>
-                        ¡Hola usuario logueado!
-                    </h1>
-                </div>
-                :
-                <div className="d-flex flex-column justify-content-center align-items-center text-center gap-4 m-auto" style={{height: '100vh', width: '400px'}}>
-                    <h1>
-                        Iniciar sesión o registrarse
-                    </h1>
-                    <div className="d-flex flex-column justify-content-center align-items-center gap-2" style={{width: '100%'}}>
-                        <Button variant="outline-primary" size="lg" className="w-100" onClick={() => navigate("/login")}>
-                            Iniciar sesión
-                        </Button>
-                        <Button variant="primary" size="lg" className="w-100" disabled>
-                            Registrarse
-                        </Button>
+        <div id="HomePage" className="d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
+            {cargando ? (
+                <div className="text-center">
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Cargando...</span>
                     </div>
+                    <p className="mt-2">Verificando sesión...</p>
                 </div>
-            }
-        </>
-    )
+            ) : (
+                estaLogueado ? <LoggedInGreeting/> : <AuthPrompt/>
+            )}
+        </div>
+    );
 }
 
 export default HomePage;

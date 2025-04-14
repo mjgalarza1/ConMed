@@ -14,4 +14,15 @@ export const login = (dni, password) => {
         .post('/login', { dni, password });
 };
 
+export const register = (nombre, dni, passwordPaciente) => {
+    return axiosService
+        .post('/registrarPaciente', { nombre, dni, passwordPaciente });
+};
 
+export const verMedicosDisponibles = () => {
+    return axiosService.get('/pacientes/verMedicos', {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
