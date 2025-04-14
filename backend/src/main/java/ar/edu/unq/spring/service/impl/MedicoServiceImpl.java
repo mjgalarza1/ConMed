@@ -1,9 +1,11 @@
 package ar.edu.unq.spring.service.impl;
 
 import ar.edu.unq.spring.modelo.Medico;
+import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.persistence.MedicoDAO;
 import ar.edu.unq.spring.persistence.PacienteDAO;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
+import ar.edu.unq.spring.service.interfaces.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,9 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Autowired
     private MedicoDAO medicoDAO;
+
+    @Autowired
+    private TurnoService turnoService;
 
     @Override
     public List<Medico> allMedicos() {
@@ -47,6 +52,11 @@ public class MedicoServiceImpl implements MedicoService {
         medicoNuevo.setMatricula(medicoActualizado.getMatricula());
 
         this.medicoDAO.save(medicoNuevo);
+    }
+
+    public String agregarTurno(Turno turno) {
+        turnoService.crearTurno(turno);
+        return "Turno agregado";
     }
 
     @Override
