@@ -27,6 +27,14 @@ export const verMedicosDisponibles = () => {
     });
 };
 
+export const verTurnosReservadosPorPaciente = (id_paciente) => {
+    return axiosService.get(`/turnos/paciente/${id_paciente}/turnosReservados`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
 export const verTurnosDisponiblesDelMedico = (idMedico) => {
     return axiosService.get(`/turnos/medico/${idMedico}/turnosDisponibles`, {
         headers: {

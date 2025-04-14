@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.service.impl;
 
+import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
 import ar.edu.unq.spring.modelo.*;
 import ar.edu.unq.spring.persistence.MedicoDAO;
 import ar.edu.unq.spring.persistence.PacienteDAO;
@@ -124,6 +125,11 @@ public class TurnoServiceImpl implements TurnoService {
     @Override
     public Set<Turno> obtenerTurnosDisponiblesDeMedicoById(Long medicoId) {
         return turnoDAO.obtenerTurnosDisponiblesDelMedico(medicoId);
+    }
+
+    @Override
+    public Set<TurnoReservadoDTO> obtenerTurnosReservadosDePacienteById(Long pacienteId) {
+        return turnoDAO.obtenerTurnosReservadosDelPaciente(pacienteId);
     }
 
     @Override

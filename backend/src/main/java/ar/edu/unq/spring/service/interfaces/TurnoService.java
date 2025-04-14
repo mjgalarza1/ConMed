@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.service.interfaces;
 
+import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
 import ar.edu.unq.spring.modelo.Turno;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface TurnoService {
     Set<Turno> obtenerTurnoByPaciente(Long pacienteId);
     Set<Turno> obtenerTurnoByMedico(Long medicoId);
     Set<Turno> obtenerTurnosDisponiblesDeMedicoById(Long medicoId);
+    Set<TurnoReservadoDTO> obtenerTurnosReservadosDePacienteById(Long pacienteId);
 
     void clearAll();
 }
