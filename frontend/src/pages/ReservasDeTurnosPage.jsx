@@ -21,7 +21,7 @@ const ReservasDeTurnosPage = () => {
                 const response = await verTurnosReservadosPorPaciente(paciente_id);
                 setTurnos(response.data);
             } catch (err) {
-                setError("Error al obtener los médicos disponibles");
+                setError("Error al obtener los turnos reservados");
             } finally {
                 setLoading(false);
             }
