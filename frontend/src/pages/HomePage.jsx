@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import AuthPrompt from "../components/AuthPrompt.jsx";
-import LoggedInGreeting from "../components/HomeLoggedContent.jsx";
+import AuthPrompt from "../components/basic/AuthPrompt.jsx";
+import LoggedInGreeting from "../components/basic/HomeLoggedContent.jsx";
 
 function HomePage() {
     const [estaLogueado, setEstaLogueado] = useState(false);
