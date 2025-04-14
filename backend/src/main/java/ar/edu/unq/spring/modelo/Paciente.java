@@ -37,5 +37,6 @@ public class Paciente {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = false,fetch = FetchType.EAGER)
     @ToString.Exclude
-    private Set<Turno> turnos;
+    private Set<TurnoReservado> turnos;
+
 }

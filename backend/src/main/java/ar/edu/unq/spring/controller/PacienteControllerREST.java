@@ -47,6 +47,12 @@ public class PacienteControllerREST {
         return ResponseEntity.ok(PacienteDTO.desdeModelo(paciente));
     }
 
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<PacienteDTO> obtenerPorDni(@PathVariable String dni) {
+        Paciente paciente = this.pacienteService.recuperarPacientePorDni(dni);
+        return ResponseEntity.ok(PacienteDTO.desdeModelo(paciente));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody PacienteDTO pacienteDTO) {
         if (pacienteDTO.nombre() == null || pacienteDTO.nombre().trim().isEmpty()){

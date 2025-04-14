@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.service.impl;
 
+import ar.edu.unq.spring.controller.dto.PacienteDTO;
 import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.persistence.PacienteDAO;
@@ -28,10 +29,18 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public Paciente recuperarPacientePorId(Long paceinteId) {
-        if (paceinteId == null)
+    public Paciente recuperarPacientePorId(Long pacienteId) {
+        if (pacienteId == null)
             throw new RuntimeException("ID invalido");
-        return this.pacienteDAO.findById(paceinteId).orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID!"));
+        return this.pacienteDAO.findById(pacienteId).orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID!"));
+    }
+
+    @Override
+    public Paciente recuperarPacientePorDni(String dni) {
+        if (dni == null || dni.isBlank())
+            throw new RuntimeException("DNI invalido");
+        Paciente paciente = pacienteDAO.findByDni(dni);
+        return paciente;
     }
 
     @Override

@@ -2,6 +2,7 @@ package ar.edu.unq.spring.modelo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import java.time.LocalTime;
 @Setter
 @Getter
 @ToString
+@NoArgsConstructor
 
 @Entity
 public class Turno {
@@ -22,12 +24,10 @@ public class Turno {
     private LocalTime hora;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id", nullable = true)
-    private Paciente paciente;
-
-    @ManyToOne
-    @JoinColumn(name = "medico_id", nullable = true)
+    @JoinColumn(name = "medico_id")
     private Medico medico;
 
-    public Turno() {}
+    @Enumerated(EnumType.STRING)
+    private TurnoDisponibilidad disponibilidad;
+
 }
