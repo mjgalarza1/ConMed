@@ -1,9 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getTurnoByIdMedico} from "../services/AxiosService.js";
+import {getTurnosByDniMedico} from "../services/AxiosService.js";
 import {Alert, Button, Container, Spinner, Table} from "react-bootstrap";
 
-const ReservasDeTurnosPage = () => {
+const TurnosDelMedicoPage = () => {
     const [turnos, setTurnos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -17,11 +17,11 @@ const ReservasDeTurnosPage = () => {
     useEffect(() => {
         const fetchTurnosMedico = async () => {
             try {
-                const medico_id = JSON.parse(localStorage.getItem("usuario"))?.id;
-                const response = await getTurnoByIdMedico(medico_id);
+                const user_dni = JSON.parse(localStorage.getItem("usuario"))?.dni;
+                const response = await getTurnosByDniMedico(user_dni);
                 setTurnos(response.data);
             } catch (err) {
-                setError("Error al obtener los turnos reservados");
+                setError("Error al obtener los turnos del médico");
             } finally {
                 setLoading(false);
             }
@@ -58,8 +58,8 @@ const ReservasDeTurnosPage = () => {
                             <tr className="text-center" key={index}>
                                 <td>{turnos.fecha}</td>
                                 <td>{turnos.hora}</td>
-                                <td>{turnos.nombreMedico}</td>
-                                <td>{turnos.especialidad}</td>
+                                <td>{turnos.nombrePaciente}</td>
+                                <td>{turnos.disponibilidad}</td>
                             </tr>
                         ))}
                         </tbody>
@@ -73,4 +73,4 @@ const ReservasDeTurnosPage = () => {
     )
 }
 
-export default ReservasDeTurnosPage;
+export default TurnosDelMedicoPage;

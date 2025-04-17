@@ -3,6 +3,7 @@ package ar.edu.unq.spring.controller;
 import ar.edu.unq.spring.controller.dto.ReservaDeTurnoDTO;
 import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
+import ar.edu.unq.spring.controller.dto.TurnosMedicoDTO;
 import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.service.interfaces.TurnoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -41,9 +42,9 @@ public class TurnoControllerREST {
         return turnoService.obtenerTurnosReservadosDePacienteById(id_paciente);
     }
 
-    @GetMapping("/medico/{id_medico}")
-    public Set<TurnoDTO> turnosDelMedico(@PathVariable Long id_medico){
-        return turnoService.obtenerTurnosByMedico(id_medico).stream().map(TurnoDTO::desdeModelo).collect(Collectors.toSet());
+    @GetMapping("/medico/{dni_medico}")
+    public Set<TurnosMedicoDTO> turnosDelMedico(@PathVariable String dni_medico){
+        return turnoService.obtenerTurnosByDniMedico(dni_medico);
     }
 
     @GetMapping("/medico/{id_medico}/turnosDisponibles")

@@ -1,6 +1,7 @@
 package ar.edu.unq.spring.service.impl;
 
 import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
+import ar.edu.unq.spring.controller.dto.TurnosMedicoDTO;
 import ar.edu.unq.spring.modelo.*;
 import ar.edu.unq.spring.persistence.MedicoDAO;
 import ar.edu.unq.spring.persistence.PacienteDAO;
@@ -117,9 +118,8 @@ public class TurnoServiceImpl implements TurnoService {
     }
 
     @Override
-    public Set<Turno> obtenerTurnosByMedico(Long medicoId) {
-        Medico medicoBD = medicoDAO.findById(medicoId).orElseThrow(() -> new RuntimeException("No existe ningun Medico con este ID"));
-        return medicoBD.getTurnos();
+    public Set<TurnosMedicoDTO> obtenerTurnosByDniMedico(String medicoDni) {
+        return turnoDAO.obtenerTurnosDelMedicoPorDni(medicoDni);
     }
 
     @Override

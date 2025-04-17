@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage.jsx";
 import Layout from "./pages/Layout.jsx";
 import MedicosDisponiblesPage from "./pages/MedicosDisponiblesPage.jsx";
 import ReservasDeTurnosPage from "./pages/ReservasDeTurnosPage.jsx";
+import TurnosDelMedicoPage from "./pages/TurnosDelMedicoPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: "/reservasDeTurnos",
                 element: <ReservasDeTurnosPage />
+            },
+            {
+                path: "/turnosDelMedico",
+                element: <TurnosDelMedicoPage />
             }
         ]
     }
