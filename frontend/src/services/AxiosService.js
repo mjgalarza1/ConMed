@@ -51,6 +51,14 @@ export const getPacienteByDni = (dniPaciente) => {
     });
 };
 
+export const getUsuarioByDni = (dniUsuario) => {
+    return axiosService.get(`/usuarios/dni/${dniPaciente}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
 export const reservarTurno = (idPaciente, idTurno) => {
     return axiosService.post(
         '/turnos/reservar',
