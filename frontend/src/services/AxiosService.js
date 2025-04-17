@@ -63,4 +63,12 @@ export const reservarTurno = (idPaciente, idTurno) => {
     );
 };
 
+export const getTurnoByIdMedico = (idMedico) => {
+    return axiosService.get(`/turnos/medico/${idMedico}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
 

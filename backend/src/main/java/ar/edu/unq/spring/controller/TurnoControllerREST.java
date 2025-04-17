@@ -43,7 +43,7 @@ public class TurnoControllerREST {
 
     @GetMapping("/medico/{id_medico}")
     public Set<TurnoDTO> turnosDelMedico(@PathVariable Long id_medico){
-        return turnoService.obtenerTurnoByMedico(id_medico).stream().map(TurnoDTO::desdeModelo).collect(Collectors.toSet());
+        return turnoService.obtenerTurnosByMedico(id_medico).stream().map(TurnoDTO::desdeModelo).collect(Collectors.toSet());
     }
 
     @GetMapping("/medico/{id_medico}/turnosDisponibles")

@@ -117,7 +117,7 @@ public class TurnoServiceImpl implements TurnoService {
     }
 
     @Override
-    public Set<Turno> obtenerTurnoByMedico(Long medicoId) {
+    public Set<Turno> obtenerTurnosByMedico(Long medicoId) {
         Medico medicoBD = medicoDAO.findById(medicoId).orElseThrow(() -> new RuntimeException("No existe ningun Medico con este ID"));
         return medicoBD.getTurnos();
     }
@@ -136,6 +136,5 @@ public class TurnoServiceImpl implements TurnoService {
     public void clearAll() {
         turnoDAO.deleteAllInBatch();
     }
-
 
 }

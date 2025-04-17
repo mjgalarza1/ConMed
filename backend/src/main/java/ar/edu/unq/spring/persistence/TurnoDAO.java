@@ -1,6 +1,7 @@
 package ar.edu.unq.spring.persistence;
 
 import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
+import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Turno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +30,15 @@ public interface TurnoDAO extends JpaRepository<Turno, Long> {
         WHERE p.idPaciente = :pacienteId
     """)
     Set<TurnoReservadoDTO> obtenerTurnosReservadosDelPaciente(@Param("pacienteId") Long pacienteId);
+
+    @Query("""
+        SELECT t, tr.paciente.nombre
+        FROM Turno t
+        LEFT JOIN TurnoReservado tr ON tr.idTurnoReservado = t.id
+        WHERE t.medico.idMedico = ?1
+          and t.fecha >= current_date()
+    """)
+    Set<Turno> obtenerTurnosDelMedico(Long idMedico);
+
+    Long medico(Medico medico);
 }
