@@ -1,13 +1,12 @@
 package ar.edu.unq.spring.controller;
 
 import ar.edu.unq.spring.controller.dto.CreatePacienteDTO;
+import ar.edu.unq.spring.controller.dto.UsuarioDTO;
 import ar.edu.unq.spring.jwt.modelo.AuthenticationResponse;
 import ar.edu.unq.spring.jwt.service.AuthenticationService;
 import ar.edu.unq.spring.modelo.Usuario;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ar.edu.unq.spring.controller.utils.Validator;
 
@@ -30,5 +29,11 @@ public class AuthenticationControllerREST {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody Usuario request) {
         Validator.getInstance().validarUsuarioLogin(request);
         return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @GetMapping("/usuario/{dni}")
+    public ResponseEntity<UsuarioDTO> obtenerPorDni(@PathVariable String dni) {
+        Usuario usuario = this.authenticationService.recuperarUsuarioPorDni(dni);
+        return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario));
     }
 }

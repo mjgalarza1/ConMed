@@ -1,6 +1,7 @@
 package ar.edu.unq.spring.modelo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Set;
@@ -23,6 +24,8 @@ public class Medico {
     private String apellido;
     private String especialidad;
     private String matricula;
+    @Size(min = 6, message = "La contraseña debe tener un mínimo de 6 caracteres")
+    private String passwordMedico;
 
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @ToString.Exclude
@@ -36,6 +39,14 @@ public class Medico {
         this.matricula = matricula;
     }
 
+    public Medico(String nombre, String apellido, String dni, String especialidad, String matricula, String passwordMedico) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.especialidad = especialidad;
+        this.matricula = matricula;
+        this.passwordMedico = passwordMedico;
+    }
 
     public String getNombreCompleto(){return this.nombre + " " + this.apellido;}
 

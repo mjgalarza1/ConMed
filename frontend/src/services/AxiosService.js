@@ -51,6 +51,32 @@ export const getPacienteByDni = (dniPaciente) => {
     });
 };
 
+export const getMedicoByDni = (dniMedico) => {
+    return axiosService.get(`/medicos/dni/${dniMedico}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+//Para futura implementación de admin
+// export const getAdministradorByDni = (dniAdministrador) => {
+//     return axiosService.get(`/administrador/dni/${dniAdministrador}`, {
+//         headers: {
+//             'Authorization': `Bearer ${localStorage.getItem('token')}`,
+//         },
+//     });
+// };
+
+export const getUsuarioByDni = (dniUsuario) => {
+    return axiosService.get(`/usuario/${dniUsuario}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+
 export const reservarTurno = (idPaciente, idTurno) => {
     return axiosService.post(
         '/turnos/reservar',

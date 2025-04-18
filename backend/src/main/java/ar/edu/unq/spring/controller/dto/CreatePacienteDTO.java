@@ -1,6 +1,5 @@
 package ar.edu.unq.spring.controller.dto;
 
-import ar.edu.unq.spring.modelo.Administrador;
 import ar.edu.unq.spring.modelo.Paciente;
 
 public record CreatePacienteDTO(Long id, String nombre, String dni, String passwordPaciente) {

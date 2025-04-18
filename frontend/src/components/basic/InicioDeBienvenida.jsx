@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-function AuthPrompt() {
+function InicioDeBienvenida() {
     const navigate = useNavigate();
 
     return (
@@ -21,4 +21,4 @@ function AuthPrompt() {
     );
 }
 
-export default AuthPrompt;
+export default InicioDeBienvenida;
