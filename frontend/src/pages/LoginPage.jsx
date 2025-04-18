@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import LoginForm from "../components/forms/LoginForm/LoginForm.jsx";
-import {login, getPacienteByDni} from "../services/AxiosService.js";
+import {login, getPacienteByDni, getUsuarioByDni, getMedicoByDni} from "../services/AxiosService.js";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -19,11 +19,26 @@ const LoginPage = () => {
 
     const handleDatosDeUsuario = async (dni) => {
         try {
-            const response = await getPacienteByDni(dni);
+            const response = await getUsuarioByDni(dni);
+
+            let responseRole
+            switch (response.data.role) {
+                case "PACIENTE":
+                    responseRole = await getPacienteByDni(dni)
+                    break;
+                case "MEDICO":
+                    responseRole = await getMedicoByDni(dni)
+                    break;
+                // case "ADMIN":
+                //     responseRole = await getAdministradorByDni(dni)
+                //     break;
+            }
+
             const usuario = {
-                id: response.data.id,
+                id: responseRole.data.id,
                 dni: response.data.dni,
-                nombre: response.data.nombre,
+                nombre: responseRole.data.nombre,
+                role: response.data.role,
             };
             localStorage.setItem("usuario", JSON.stringify(usuario));
         } catch (error) {

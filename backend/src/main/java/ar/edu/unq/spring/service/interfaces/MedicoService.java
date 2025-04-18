@@ -10,6 +10,7 @@ public interface MedicoService {
     List<Medico> allMedicos();
     Medico guardarMedico(Medico medico);
     Medico recuperarMedicoPorId(Long medicoId);
+    Medico recuperarMedicoPorDni(String dni);
     void actualizarMedico(Long medicoId, Medico medicoActualizado);
     void clearAll();
     void eliminarMedico(Long medicoId);

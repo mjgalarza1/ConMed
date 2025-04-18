@@ -3,6 +3,7 @@ package ar.edu.unq.spring.modelo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Usuario implements UserDetails {
     @Id
@@ -29,6 +31,11 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    public Usuario(String dni, Role role) {
+        this.dni = dni;
+        this.role = role;
     }
 
     @Override

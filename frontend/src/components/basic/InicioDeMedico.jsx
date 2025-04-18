@@ -1,7 +1,7 @@
 import {Button, Stack} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
-function LoggedInGreeting() {
+function InicioDeMedico() {
     const navigate = useNavigate();
 
     return (
@@ -11,12 +11,9 @@ function LoggedInGreeting() {
                      width: '50vw'
             }}>
                 <h1>¿Qué acción deseas realizar?</h1>
-                <Stack gap={2} className="m-auto">
-                    <Button variant="outline-primary" size="lg" onClick={() => navigate("/medicosDisponibles")}>
-                        Ver médicos disponibles
-                    </Button>
-                    <Button variant="outline-primary" size="lg" onClick={() => navigate("/reservasDeTurnos")}>
-                        Ver turnos reservados
+                <Stack gap={2} className="m-auto w-25">
+                    <Button variant="outline-primary" size="lg" disabled>
+                        Ver turnos
                     </Button>
                 </Stack>
             </div>
@@ -24,4 +21,4 @@ function LoggedInGreeting() {
     );
 }
 
-export default LoggedInGreeting;
+export default InicioDeMedico;

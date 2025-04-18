@@ -2,6 +2,7 @@ package ar.edu.unq.spring.service.impl;
 
 import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
+import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.persistence.MedicoDAO;
 import ar.edu.unq.spring.persistence.PacienteDAO;
@@ -40,6 +41,14 @@ public class MedicoServiceImpl implements MedicoService {
         if (medicoId == null)
             throw new RuntimeException("ID invalido");
         return this.medicoDAO.findById(medicoId).orElseThrow(() -> new RuntimeException("No existe ningun medico con este ID!"));
+    }
+
+    @Override
+    public Medico recuperarMedicoPorDni(String dni) {
+        if (dni == null || dni.isBlank())
+            throw new RuntimeException("DNI invalido");
+        Medico medico = medicoDAO.findByDni(dni);
+        return medico;
     }
 
     public void actualizarMedico(Long medicoId, Medico medicoActualizado) {

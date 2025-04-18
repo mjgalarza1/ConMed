@@ -3,7 +3,6 @@ package ar.edu.unq.spring.controller;
 import ar.edu.unq.spring.controller.dto.MedicoDTO;
 import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
-import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +63,11 @@ public class MedicoControllerREST {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         medicoService.eliminarMedico(id);
+    }
+
+    @GetMapping("/dni/{dni}")
+    public ResponseEntity<MedicoDTO> obtenerPorDni(@PathVariable String dni) {
+        Medico medico = this.medicoService.recuperarMedicoPorDni(dni);
+        return ResponseEntity.ok(MedicoDTO.desdeModelo(medico));
     }
 }

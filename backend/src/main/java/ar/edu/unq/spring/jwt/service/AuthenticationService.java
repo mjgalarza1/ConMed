@@ -1,6 +1,7 @@
 package ar.edu.unq.spring.jwt.service;
 
 import ar.edu.unq.spring.controller.dto.CreatePacienteDTO;
+import ar.edu.unq.spring.controller.dto.UsuarioDTO;
 import ar.edu.unq.spring.jwt.modelo.AuthenticationResponse;
 import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Role;
@@ -34,9 +35,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse registrarPaciente(CreatePacienteDTO request) {
         // CREAR Y GUARDAR USUARIO EN BASE DE DATOS
-        Usuario usuario = new Usuario();
-        usuario.setDni(request.dni());
-        usuario.setRole(Role.PACIENTE);
+        Usuario usuario = new Usuario(request.dni(), Role.PACIENTE);
         String encodedPassword = passwordEncoder.encode(request.passwordPaciente());
         usuario.setPassword(encodedPassword);
 
@@ -73,5 +72,12 @@ public class AuthenticationService {
         String token = jwtService.generateToken(usuario);
 
         return new AuthenticationResponse(token);
+    }
+
+    public Usuario recuperarUsuarioPorDni(String dni) {
+        if (dni == null || dni.isBlank())
+            throw new RuntimeException("DNI invalido");
+        Usuario usuario = usuarioDAO.findByDni(dni);
+        return usuario;
     }
 }
