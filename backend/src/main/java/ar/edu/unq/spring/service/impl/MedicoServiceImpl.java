@@ -2,10 +2,8 @@ package ar.edu.unq.spring.service.impl;
 
 import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
-import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.persistence.MedicoDAO;
-import ar.edu.unq.spring.persistence.PacienteDAO;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
 import ar.edu.unq.spring.service.interfaces.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -39,24 +36,24 @@ public class MedicoServiceImpl implements MedicoService {
     @Override
     public Medico recuperarMedicoPorId(Long medicoId) {
         if (medicoId == null)
-            throw new RuntimeException("ID invalido");
-        return this.medicoDAO.findById(medicoId).orElseThrow(() -> new RuntimeException("No existe ningun medico con este ID!"));
+            throw new IllegalArgumentException("ID invalido");
+        return this.medicoDAO.findById(medicoId).orElseThrow(() -> new IllegalArgumentException("No existe ningun medico con este ID!"));
     }
 
     @Override
     public Medico recuperarMedicoPorDni(String dni) {
         if (dni == null || dni.isBlank())
-            throw new RuntimeException("DNI invalido");
+            throw new IllegalArgumentException("DNI invalido");
         Medico medico = medicoDAO.findByDni(dni);
         return medico;
     }
 
     public void actualizarMedico(Long medicoId, Medico medicoActualizado) {
         if(medicoId == null)
-            throw new RuntimeException("ID invalido");
+            throw new IllegalArgumentException("ID invalido");
 
         Medico medicoNuevo = this.medicoDAO.findById(medicoId)
-                .orElseThrow(() -> new RuntimeException("No existe ningun Medico con este ID"));
+                .orElseThrow(() -> new IllegalArgumentException("No existe ningun Medico con este ID"));
 
         medicoNuevo.setNombre(medicoActualizado.getNombre());
         medicoNuevo.setApellido(medicoActualizado.getApellido());
@@ -68,13 +65,10 @@ public class MedicoServiceImpl implements MedicoService {
 
     public TurnoDTO agregarTurno(Turno turno) {
         if (turno == null) {
-            throw new RuntimeException("Turno invalido");
+            throw new IllegalArgumentException("Turno invalido");
         }
-        if (
-                turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getHora().equals(turno.getHora()))
-                && turnoService.obtenerTodosLosTurnos().stream().anyMatch(t -> t.getFecha().equals(turno.getFecha()))
-        ) {
-            throw new RuntimeException("No se puede agregar el turno porque ya existe un turno con la misma fecha y hora que las dadas");
+        if (turnoService.existeTurnoConFechaYHora(turno.getFecha(), turno.getHora())) {
+            throw new IllegalArgumentException("No se puede agregar el turno porque ya existe un turno con la misma fecha y hora que las dadas");
         }
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaActual = LocalTime.now();
@@ -82,7 +76,7 @@ public class MedicoServiceImpl implements MedicoService {
                 turno.getFecha().isBefore(fechaActual)
                 && turno.getHora().isBefore(horaActual)
         ) {
-            throw new RuntimeException("No se puede agregar un turno en una fecha y hora anterior a la fecha y hora actual");
+            throw new IllegalArgumentException("No se puede agregar un turno en una fecha y hora anterior a la fecha y hora actual");
         }
 
         Turno nuevoTurno = turnoService.crearTurno(turno);

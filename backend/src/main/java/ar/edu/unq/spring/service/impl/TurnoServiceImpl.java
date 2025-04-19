@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -135,6 +137,12 @@ public class TurnoServiceImpl implements TurnoService {
     @Override
     public void clearAll() {
         turnoDAO.deleteAllInBatch();
+    }
+
+    @Override
+    public boolean existeTurnoConFechaYHora(LocalDate fecha, LocalTime hora) {
+        return turnoDAO.existeTurnoConFechaYHora(fecha, hora);
+
     }
 
 }

@@ -4,6 +4,8 @@ import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
 import ar.edu.unq.spring.controller.dto.TurnosMedicoDTO;
 import ar.edu.unq.spring.modelo.Turno;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
@@ -22,4 +24,6 @@ public interface TurnoService {
     Set<TurnoReservadoDTO> obtenerTurnosReservadosDePacienteById(Long pacienteId);
 
     void clearAll();
+
+    boolean existeTurnoConFechaYHora(LocalDate fecha, LocalTime hora);
 }

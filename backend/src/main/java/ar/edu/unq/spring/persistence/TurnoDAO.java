@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Repository
@@ -49,4 +51,12 @@ public interface TurnoDAO extends JpaRepository<Turno, Long> {
     Set<TurnosMedicoDTO> obtenerTurnosDelMedicoPorDni(String dniMedico);
 
     Long medico(Medico medico);
+
+    @Query("""
+    SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END
+    FROM Turno t
+    WHERE t.fecha = :fecha AND t.hora = :hora
+""")
+    boolean existeTurnoConFechaYHora(@Param("fecha") LocalDate fecha, @Param("hora") LocalTime hora);
+
 }

@@ -56,8 +56,7 @@ public class MedicoControllerREST {
     @PostMapping("/agregarTurno")
     public ResponseEntity<?> agregarTurno(@RequestBody TurnoDTO turnoDTO) {
         Medico medico = medicoService.recuperarMedicoPorId(turnoDTO.medicoId());
-        TurnoDTO nuevoTurno = medicoService.agregarTurno(turnoDTO.aModelo(medico));
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoTurno);
+        return ResponseEntity.ok(medicoService.agregarTurno(turnoDTO.aModelo(medico)));
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,6 @@
 import { Toast, ToastContainer } from 'react-bootstrap';
 
-const ReservaExitosaToast = ({ mostrarToast, setMostrarToast }) => {
+const ConMedToast = ({ mostrarToast, setMostrarToast, titulo, descripcion }) => {
     return (
         <ToastContainer position="bottom-end" className="p-3">
             <Toast
@@ -11,12 +11,12 @@ const ReservaExitosaToast = ({ mostrarToast, setMostrarToast }) => {
                 bg="success"
             >
                 <Toast.Header closeButton={false}>
-                    <strong className="me-auto">Reserva exitosa</strong>
+                    <strong className="me-auto">{titulo}</strong>
                 </Toast.Header>
-                <Toast.Body className="text-white">Has reservado un turno</Toast.Body>
+                <Toast.Body className="text-white">{descripcion}</Toast.Body>
             </Toast>
         </ToastContainer>
     );
 };
 
-export default ReservaExitosaToast;
+export default ConMedToast;

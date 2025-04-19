@@ -3,7 +3,7 @@ import {Table, Container, Spinner, Alert, Button} from "react-bootstrap";
 import {verMedicosDisponibles} from "../services/AxiosService.js";
 import {useNavigate} from "react-router-dom";
 import ConfirmarTurnoModal from "../components/modals/ConfirmarTurnoModal.jsx";
-import ReservaExitosaToast from "../components/basic/ReservaExitosaToast.jsx";
+import ConMedToast from "../components/basic/ConMedToast.jsx";
 
 const MedicosDisponiblesPage = () => {
     const [medicos, setMedicos] = useState([]);
@@ -56,9 +56,11 @@ const MedicosDisponiblesPage = () => {
             onReservaExitosa={() => setMostrarToast(true)}
         />
 
-        <ReservaExitosaToast
+        <ConMedToast
             mostrarToast={mostrarToast}
             setMostrarToast={setMostrarToast}
+            titulo= "Reserva exitosa"
+            descripcion= "Has reservado un turno"
         />
 
         <Container className="mt-5">
