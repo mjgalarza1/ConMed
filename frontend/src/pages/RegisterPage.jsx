@@ -24,6 +24,7 @@ const RegisterPage = () => {
                 id: response.data.id,
                 dni: response.data.dni,
                 nombre: response.data.nombre,
+                role: "PACIENTE"
             };
             localStorage.setItem("usuario", JSON.stringify(usuario));
         } catch (error) {
