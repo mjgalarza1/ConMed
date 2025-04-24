@@ -19,7 +19,7 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
         const { name, value } = e.target;
 
         if (name === "nombre" || name === "apellido") {
-            const soloLetrasSinEspacio = /^[A-Za-zÑñ]+$/;
+            const soloLetrasSinEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+$/;
             if (value === "" || soloLetrasSinEspacio.test(value)) {
                 setFormData({ ...formData, [name]: value });
             }
@@ -30,7 +30,7 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
 
 
     const handleConfirmar = async () => {
-        const soloLetrasSinEspacio = /^[A-Za-zÑñ]+$/;
+        const soloLetrasSinEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+$/;
 
         // Validaciones
         if (!soloLetrasSinEspacio.test(formData.nombre)) {
@@ -42,6 +42,12 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
             alert("El apellido solo puede contener letras y un único espacio entre dos palabras.");
             return;
         }
+
+        if (!formData.especialidad) {
+            alert("Seleccione una especialidad.");
+            return;
+        }
+
 
         // Si pasa todas las validaciones, continúa
         setCargando(true);
@@ -61,14 +67,6 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
             alert(error.response?.data || "Error desconocido");
         } finally {
             setCargando(false);
-            setFormData({
-                nombre: '',
-                apellido: '',
-                especialidad: '',
-                dni: '',
-                matricula: '',
-                passwordMedico: ''
-            });
         }
     };
 
@@ -172,7 +170,23 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>Cancelar</Button>
+                <Button
+                    variant="secondary"
+                    onClick={() => {
+                        setFormData({
+                            nombre: '',
+                            apellido: '',
+                            especialidad: '',
+                            dni: '',
+                            matricula: '',
+                            passwordMedico: ''
+                        });
+                        onHide();
+                    }}
+                >
+                    Cancelar
+                </Button>
+
                 <Button variant="success" onClick={handleConfirmar} disabled={cargando}>
                     {cargando ? <Spinner animation="border" size="sm" /> : "Confirmar"}
                 </Button>

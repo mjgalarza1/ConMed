@@ -13,12 +13,12 @@ public record MedicoDTOAdmin(
 ) {
     public MedicoDTOAdmin {
         // Validar nombre
-        if (!nombre.matches("^[A-Za-z]+( [A-Za-z]+)?$")) {
+        if (!nombre.matches("^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+( [A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+)?$")) {
             throw new IllegalArgumentException("Nombre inválido. Solo se permite un espacio y letras.");
         }
 
         // Validar apellido
-        if (!apellido.matches("^[A-Za-z]+( [A-Za-z]+)?$")) {
+        if (!apellido.matches("^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+( [A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+)?$")) {
             throw new IllegalArgumentException("Apellido inválido. Solo se permite un espacio y letras.");
         }
 
