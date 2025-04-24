@@ -11,6 +11,7 @@ const TodosLosMedicosPage = () => {
     const [error, setError] = useState(null);
     const [agregarMedicoModalShow, setAgregarMedicoModalShow] = useState(false);
     const [mostrarToast, setMostrarToast] = useState(false);
+    const [mostrarEliminadoToast, setMostrarEliminadoToast] = useState(false);
 
     const navigate = useNavigate();
 
@@ -67,6 +68,13 @@ const TodosLosMedicosPage = () => {
                 descripcion= "Has agregado un Medico"
             />
 
+            <ConMedToast
+                mostrarToast={mostrarEliminadoToast}
+                setMostrarToast={setMostrarEliminadoToast}
+                titulo= "Medico eliminado exitosamente"
+                descripcion= "Has eliminado un Medico"
+            />
+
             <Container className="mt-5">
                 <h2 className="mb-4 text-center">Todos los Médicos</h2>
                 {loading && (
@@ -90,10 +98,10 @@ const TodosLosMedicosPage = () => {
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Matricula</th>
-                                <th>DNI</th>
+                                {/*<th>DNI</th>*/}
                                 <th>Especialidad</th>
-                                <th>Contraseña</th>
-                                <th>Acciones</th>
+                                {/*<th>Contraseña</th>*/}
+                                {/*<th>Acciones</th>*/}
                             </tr>
                             </thead>
                             <tbody>
@@ -102,16 +110,23 @@ const TodosLosMedicosPage = () => {
                                     <td>{medicos.nombre}</td>
                                     <td>{medicos.apellido}</td>
                                     <td>{medicos.matricula}</td>
-                                    <td>{medicos.dni}</td>
+                                    {/*<td>{medicos.dni}</td>*/}
                                     <td>{medicos.especialidad}</td>
-                                    <td>{medicos.passwordMedico}</td>
+                                    {/*<td>{medicos.passwordMedico}</td>*/}
                                     <td>
                                         <Button
                                             variant="danger"
-                                            onClick={() => handleEliminarMedico(medicos.idMedico)}
+                                            onClick={() => {
+                                                const confirmacion = window.confirm("¿Estás seguro de que querés eliminar este médico?");
+                                                if (confirmacion) {
+                                                    handleEliminarMedico(medicos.idMedico);
+                                                    setMostrarEliminadoToast(true);
+                                                }
+                                            }}
                                         >
                                             Eliminar
                                         </Button>
+
                                     </td>
                                 </tr>
                             ))}
