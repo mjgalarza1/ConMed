@@ -60,13 +60,13 @@ export const getMedicoByDni = (dniMedico) => {
 };
 
 //Para futura implementación de admin
-// export const getAdministradorByDni = (dniAdministrador) => {
-//     return axiosService.get(`/administrador/dni/${dniAdministrador}`, {
-//         headers: {
-//             'Authorization': `Bearer ${localStorage.getItem('token')}`,
-//         },
-//     });
-// };
+export const getAdministradorByDni = (dniAdministrador) => {
+    return axiosService.get(`/administrador/dni/${dniAdministrador}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
 
 export const getUsuarioByDni = (dniUsuario) => {
     return axiosService.get(`/usuario/${dniUsuario}`, {
@@ -103,6 +103,34 @@ export const agregarTurno = (medicoId, fecha, hora, disponibilidad) => {
 
 export const getTurnosByDniMedico = (dniMedico) => {
     return axiosService.get(`/turnos/medico/${dniMedico}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const getAllMedicos = () => {
+    return axiosService.get(`/administrador/todosLosMedicos`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const agregarMedico = (nombre, apellido, dni, especialidad, matricula, passwordMedico) => {
+    return axiosService.post(
+        '/administrador/agregarMedico',
+        { nombre, apellido, dni, especialidad, matricula, passwordMedico},
+        {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        }
+    );
+};
+
+export const deleteMedico = (id) => {
+    return axiosService.delete(`/administrador/quitarMedico/${id}`,{
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },

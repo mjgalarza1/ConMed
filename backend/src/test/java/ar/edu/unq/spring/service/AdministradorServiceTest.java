@@ -39,13 +39,13 @@ public class AdministradorServiceTest {
     @Test
     public void testGuardarAdministrador(){
         Long id = administradorService.guardarAdministrador(admin1).getIdAdmin();
-        Assertions.assertEquals(id, administradorService.recuperarAdministrador(id).getIdAdmin());
+        Assertions.assertEquals(id, administradorService.recuperarAdministrador(id.toString()).getIdAdmin());
     }
 
     @Test
     public void testRecuperarAdministrador(){
         Long id = administradorService.guardarAdministrador(admin1).getIdAdmin();
-        String nombre = administradorService.recuperarAdministrador(id).getNombre();
+        String nombre = administradorService.recuperarAdministrador(id.toString()).getNombre();
         Assertions.assertEquals("admin1", nombre);
     }
 

@@ -8,10 +8,9 @@ import java.util.List;
 public interface AdministradorService {
     List<Administrador> allAdministradores();
     Administrador guardarAdministrador(Administrador administrador);
-    Administrador recuperarAdministrador(Long administradorId);
+    Administrador recuperarAdministrador(String administradorId);
     void clearAll();
-
     Medico agregarMedico(Medico medico);
-
     void quitarMedico(Long medicoId);
+    List<Medico> allMedicos();
 }

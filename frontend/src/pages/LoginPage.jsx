@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import LoginForm from "../components/forms/LoginForm/LoginForm.jsx";
-import {login, getPacienteByDni, getUsuarioByDni, getMedicoByDni} from "../services/AxiosService.js";
+import {
+    login,
+    getPacienteByDni,
+    getUsuarioByDni,
+    getMedicoByDni,
+    getAdministradorByDni
+} from "../services/AxiosService.js";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -29,9 +35,9 @@ const LoginPage = () => {
                 case "MEDICO":
                     responseRole = await getMedicoByDni(dni)
                     break;
-                // case "ADMIN":
-                //     responseRole = await getAdministradorByDni(dni)
-                //     break;
+                case "ADMIN":
+                responseRole = await getAdministradorByDni(dni)
+                break;
             }
 
             const usuario = {
