@@ -98,7 +98,7 @@ const TodosLosMedicosPage = () => {
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Matricula</th>
-                                {/*<th>DNI</th>*/}
+                                <th>DNI</th>
                                 <th>Especialidad</th>
                                 {/*<th>Contraseña</th>*/}
                                 {/*<th>Acciones</th>*/}
@@ -110,7 +110,7 @@ const TodosLosMedicosPage = () => {
                                     <td>{medicos.nombre}</td>
                                     <td>{medicos.apellido}</td>
                                     <td>{medicos.matricula}</td>
-                                    {/*<td>{medicos.dni}</td>*/}
+                                    <td>{medicos.dni}</td>
                                     <td>{medicos.especialidad}</td>
                                     {/*<td>{medicos.passwordMedico}</td>*/}
                                     <td>
