@@ -7,6 +7,7 @@ public class Validator {
 
     private static volatile Validator instance;
     private static final String NOMBRE_VACIO_O_NULO = "El nombre no puede estar vacio o nulo.";
+    private static final String PATRON_DNI_ALFABETICO = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$";
     private static final String CONTRASENIA_VACIA_O_NULA = "La contraseña no puede estar vacia o nula.";
     private static final String CONTRASENIA_CANT_CARACTERES_MIN = "La contraseña debe tener un mínimo de 6 caracteres.";
     private static final String CONTRASENIA_NO_ALFANUMERICA = "La contraseña debe ser alfanumérica.";
@@ -32,6 +33,9 @@ public class Validator {
     public void validarCreatePacienteDTO(CreatePacienteDTO createPacienteDTO) {
         if (createPacienteDTO.nombre() == null || createPacienteDTO.nombre().isBlank()) {
             throw new IllegalArgumentException(NOMBRE_VACIO_O_NULO);
+        }
+        if (!createPacienteDTO.nombre().matches(PATRON_DNI_ALFABETICO)) {
+            throw new IllegalArgumentException("El nombre solo puede contener letras y espacios.");
         }
         if (createPacienteDTO.dni() == null || createPacienteDTO.dni().isBlank()) {
             throw new IllegalArgumentException(DNI_VACIO_O_NULO);
