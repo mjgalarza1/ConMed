@@ -7,6 +7,7 @@ import ar.edu.unq.spring.persistence.AdministradorDAO;
 import ar.edu.unq.spring.service.interfaces.AdministradorService;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ public class AdministradorServiceImpl implements AdministradorService {
 
     @Override
     public Administrador guardarAdministrador(Administrador administrador) {
-        return this.administradorDAO.save(administrador);
+            return this.administradorDAO.save(administrador);
     }
 
     @Override
@@ -47,7 +48,12 @@ public class AdministradorServiceImpl implements AdministradorService {
 
     @Override
     public Medico agregarMedico(Medico medico) {
-        return medicoService.guardarMedico(medico);
+        try{
+            return medicoService.guardarMedico(medico);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new IllegalArgumentException("Ya existe un Usuario con el mismo DNI o un Médico con la misma Matricula.");
+        }
     }
 
     @Override

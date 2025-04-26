@@ -20,18 +20,33 @@ const TodosLosMedicosPage = () => {
     }
 
     const handleAgregarMedico = () => {
-        setAgregarMedicoModalShow(true);
+        const token = localStorage.getItem("token"); // O el nombre que uses para el token
+
+        if (!token) {
+            alert("Debe iniciar sesión");
+            localStorage.clear();
+            navigate("/"); // Redirigir al inicio
+        } else {
+            setAgregarMedicoModalShow(true); // Mostrar el modal si hay token
+        }
     }
 
     const handleEliminarMedico = async (medicoId) => {
         try {
             await deleteMedico(medicoId);
-            setMostrarToast(true);
+            setMostrarEliminadoToast(true);
             // Refrescar la lista de médicos después de eliminar uno
             setMedicos(medicos.filter((medico) => medico.id !== medicoId));
             // eslint-disable-next-line no-unused-vars
         } catch (err) {
-            setError("Error al eliminar el médico");
+            // Si es un error de autenticación (401 o 403), redirigir
+            if (err.response && (err.response.status === 401 || err.response.status === 403)) {
+                alert("Debe iniciar sesión")
+                localStorage.clear();
+                navigate("/"); // Redirigir al inicio
+            } else {
+                setError("Error al eliminar el médico");
+            }
         }
     };
 
@@ -50,7 +65,7 @@ const TodosLosMedicosPage = () => {
         };
 
         fetchTodosLosMedicos();
-    }, [mostrarToast]);
+    }, [mostrarToast, mostrarEliminadoToast]);
 
     return (
         <>

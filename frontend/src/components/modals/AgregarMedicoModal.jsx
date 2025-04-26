@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Modal, Form, Spinner } from 'react-bootstrap';
 import { agregarMedico } from '../../services/AxiosService'; // Asegurate de tener esta función
 import { especialidadesLista } from '../../data/especialidades';
+import {useNavigate} from "react-router-dom";
 
 function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
     const [cargando, setCargando] = useState(false);
@@ -14,32 +15,52 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
         passwordMedico: ''
     });
 
+    const navigate = useNavigate();
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
         if (name === "nombre" || name === "apellido") {
-            const soloLetrasSinEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+$/;
-            if (value === "" || soloLetrasSinEspacio.test(value)) {
+            const soloLetrasYUnEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+(?: [A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+)?$/;
+            if (value === "" || soloLetrasYUnEspacio.test(value)) {
                 setFormData({ ...formData, [name]: value });
             }
+        } else if (name === "passwordMedico") {
+            // Solo letras y números permitidos, sin espacios
+            const soloAlfanumerico = value.replace(/[^A-Za-z0-9]/g, '');
+            setFormData({ ...formData, [name]: soloAlfanumerico });
         } else {
             setFormData({ ...formData, [name]: value });
         }
     };
 
 
+
+
     const handleConfirmar = async () => {
+        const token = localStorage.getItem("token"); // O el nombre que uses para el token
+
+        if (!token) {
+            alert("Debe iniciar sesión");
+            localStorage.clear();
+            navigate("/"); // Redirigir al inicio
+            return; // Evitar continuar si no hay token
+        }
+
         const soloLetrasSinEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+$/;
+        const alfanumericoRegex = /^[A-Za-z0-9]+$/;
+        const tieneLetra = /[A-Za-z]/;
+        const tieneNumero = /\d/;
 
         // Validaciones
         if (!soloLetrasSinEspacio.test(formData.nombre)) {
-            alert("El nombre solo puede contener letras y un único espacio entre dos palabras.");
+            alert("El nombre es incorrecto.");
             return;
         }
 
         if (!soloLetrasSinEspacio.test(formData.apellido)) {
-            alert("El apellido solo puede contener letras y un único espacio entre dos palabras.");
+            alert("El apellido es incorrecto.");
             return;
         }
 
@@ -47,6 +68,15 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
             alert("Seleccione una especialidad.");
             return;
         }
+
+        if (!alfanumericoRegex.test(formData.passwordMedico) ||
+            !tieneLetra.test(formData.passwordMedico) ||
+            !tieneNumero.test(formData.passwordMedico) ||
+            formData.passwordMedico.length < 6) {
+            alert("La contraseña debe ser alfanumérica, contener al menos una letra, al menos un número y tener mínimo 6 caracteres.");
+            return;
+        }
+
 
 
         // Si pasa todas las validaciones, continúa
@@ -61,10 +91,22 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
                 formData.passwordMedico
             );
             if (onAccionExitosa) onAccionExitosa();
+            setFormData({
+                nombre: '',
+                apellido: '',
+                especialidad: '',
+                dni: '',
+                matricula: '',
+                passwordMedico: ''
+            })
             onHide();
         } catch (error) {
             console.error("Error al agregar médico", error);
-            alert(error.response?.data || "Error desconocido");
+            if (error.response && error.response.data) {
+                alert(error.response.data);
+            } else {
+                alert("Error desconocido al agregar médico.");
+            }
         } finally {
             setCargando(false);
         }

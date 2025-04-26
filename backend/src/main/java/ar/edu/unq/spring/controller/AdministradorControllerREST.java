@@ -30,14 +30,14 @@ public final class AdministradorControllerREST {
 
     @PostMapping("/agregarMedico")
     public void agregarMedico(@RequestBody MedicoDTOAdmin medico) {
-        administradorService.agregarMedico(medico.aModelo());
         authenticationService.registrarMedicoComoUsuario(medico.aModelo());
+        administradorService.agregarMedico(medico.aModelo());
     }
     @DeleteMapping("/quitarMedico/{id}")
     public void quitarMedico(@PathVariable Long id) {
         Medico medicoAQuitar = medicoService.recuperarMedicoPorId(id);
-        administradorService.quitarMedico(id);
         authenticationService.eliminarUsuario(medicoAQuitar.getDni());
+        administradorService.quitarMedico(id);
     }
 
     @GetMapping("/dni/{dni}")
