@@ -56,9 +56,9 @@ public class AdministradorServiceImpl implements AdministradorService {
         catch (DataIntegrityViolationException e) {
             String errorMessage = e.getRootCause() != null ? e.getRootCause().getMessage() : e.getMessage();
 
-            if (errorMessage.contains("unique_dni")) {
+            if (errorMessage.contains("UK_bxikgoxgf4c1147wat5jth878")) {
                 throw new IllegalArgumentException("El DNI ya existe en el sistema.");
-            } else if (errorMessage.contains("unique_matricula")) {
+            } else if (errorMessage.contains("UK_idl2xshplevmr5nr7srauj9c0")) {
                 throw new IllegalArgumentException("La Matrícula ya existe en el sistema.");
             } else {
                 throw new IllegalArgumentException("Error al registrar el médico. Por favor, verifique los datos.");
