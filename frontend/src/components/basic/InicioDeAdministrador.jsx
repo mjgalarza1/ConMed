@@ -4,16 +4,15 @@ import { Button, Stack } from 'react-bootstrap';
 function InicioDeAdministrador() {
     const navigate = useNavigate();
 
-    // Función para manejar la navegación y verificar el token
     const handleVerMedicos = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
-            localStorage.clear();  // Limpiar el localStorage
-            window.location.reload();  // Recargar la página
-            alert("Debe iniciar sesión");  // O cualquier otro mensaje de alerta
+            localStorage.clear();
+            window.location.reload();
+            alert("Debe iniciar sesión");
         } else {
-            navigate("/todosLosMedicos");  // Si el token está presente, navegar a la página
+            navigate("/todosLosMedicos");
         }
     };
 
