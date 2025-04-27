@@ -25,7 +25,7 @@ public class MedicoControllerREST {
         this.medicoService = medicoService;
     }
 
-    @PostMapping
+    @PostMapping("/crm")
     public ResponseEntity<?> crear(@RequestBody MedicoDTO medicoDTO) {
         Medico nuevoMedico = medicoDTO.aModelo();
         medicoService.guardarMedico(nuevoMedico);

@@ -25,7 +25,24 @@ function AgregarTurnoModal({show, onHide, onAccionExitosa}) {
             onHide();
         } catch (error) {
             console.error("Error al agregar el turno", error);
-            alert(error.response.data);
+            const status = error.response?.status;
+            switch (status) {
+                case 401:
+                    alert("No estás logueado. Por favor iniciá sesión.");
+                    break;
+                case 403:
+                    alert("No tenés permisos para hacer esto.");
+                    break;
+                case 404:
+                    alert("No se encontró el recurso.");
+                    break;
+                case 500:
+                    alert("Error del servidor. Intentalo más tarde.");
+                    break;
+                default:
+                    alert(error.response.data || "Ocurrió un error inesperado. Intentalo nuevamente.");
+                    break;
+            }
         } finally {
             setCargandoTurno(false);
             setStartDate(getNextQuarterHourDate());
