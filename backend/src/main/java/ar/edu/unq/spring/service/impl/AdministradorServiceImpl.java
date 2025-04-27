@@ -49,10 +49,20 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Override
     public Medico agregarMedico(Medico medico) {
         try{
-            return medicoService.guardarMedico(medico);
+            Medico medicoNew = medicoService.guardarMedico(medico);
+            authenticationService.registrarMedicoComoUsuario(medico);
+            return medicoNew;
         }
-        catch (DataIntegrityViolationException e){
-            throw new IllegalArgumentException("Ya existe un Usuario con el mismo DNI o un Médico con la misma Matricula.");
+        catch (DataIntegrityViolationException e) {
+            String errorMessage = e.getRootCause() != null ? e.getRootCause().getMessage() : e.getMessage();
+
+            if (errorMessage.contains("unique_dni")) {
+                throw new IllegalArgumentException("El DNI ya existe en el sistema.");
+            } else if (errorMessage.contains("unique_matricula")) {
+                throw new IllegalArgumentException("La Matrícula ya existe en el sistema.");
+            } else {
+                throw new IllegalArgumentException("Error al registrar el médico. Por favor, verifique los datos.");
+            }
         }
     }
 

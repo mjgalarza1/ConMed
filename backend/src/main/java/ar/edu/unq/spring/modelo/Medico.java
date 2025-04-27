@@ -12,6 +12,12 @@ import java.util.Set;
 @NoArgsConstructor
 
 @Entity
+@Table(name = "medico",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "unique_dni", columnNames = "dni"),
+                @UniqueConstraint(name = "unique_matricula", columnNames = "matricula")
+        }
+)
 public class Medico {
 
     @Id
