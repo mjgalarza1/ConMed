@@ -10,8 +10,6 @@ function HomePage() {
     const [cargando, setCargando] = useState(true);
     const [role, setRole] = useState("");
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -19,13 +17,13 @@ function HomePage() {
         setRole(usuarioRole);
         setEstaLogueado(!!token);
         setCargando(false);
-    }, []);
+    }, [estaLogueado]);
 
     const inicioDeRol = () => {
         if (estaLogueado) {
             console.log(role)
             if (role === "PACIENTE") {
-                return <InicioDePaciente/>;
+                return <InicioDePaciente setEstaLogueado={setEstaLogueado}/>;
             } else if (role === "MEDICO") {
                 return <InicioDeMedico/>;
             } else if (role === "ADMIN") {
