@@ -20,6 +20,7 @@ const ReservasDeTurnosPage = () => {
                 const paciente_id = JSON.parse(localStorage.getItem("usuario"))?.id;
                 const response = await verTurnosReservadosPorPaciente(paciente_id);
                 setTurnos(response.data);
+                // eslint-disable-next-line no-unused-vars
             } catch (err) {
                 setError("Error al obtener los turnos reservados");
             } finally {

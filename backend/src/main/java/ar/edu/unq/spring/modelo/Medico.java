@@ -19,10 +19,11 @@ public class Medico {
     private Long idMedico;
     @Column(nullable = false, unique = true)
     private String dni;
-    @Column(nullable = false, length = 500, unique = true)
+    @Column(nullable = false, length = 500)
     private String nombre;
     private String apellido;
     private String especialidad;
+    @Column(nullable = false, length = 500, unique = true)
     private String matricula;
     @Size(min = 6, message = "La contraseña debe tener un mínimo de 6 caracteres")
     private String passwordMedico;

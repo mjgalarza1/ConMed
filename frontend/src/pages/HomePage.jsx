@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import InicioDeBienvenida from "../components/basic/InicioDeBienvenida.jsx";
 import InicioDePaciente from "../components/basic/InicioDePaciente.jsx";
 import InicioDeMedico from "../components/basic/InicioDeMedico.jsx";
+import InicioDeAdministrador from "../components/basic/InicioDeAdministrador.jsx";
 
 function HomePage() {
     const [estaLogueado, setEstaLogueado] = useState(false);
@@ -24,9 +25,11 @@ function HomePage() {
             if (role === "PACIENTE") {
                 return <InicioDePaciente setEstaLogueado={setEstaLogueado}/>;
             } else if (role === "MEDICO") {
-                return <InicioDeMedico />;
+                return <InicioDeMedico/>;
+            } else if (role === "ADMIN") {
+                return <InicioDeAdministrador/>;
             }
-        }else{
+        } else {
             return <InicioDeBienvenida/>;
         }
     }

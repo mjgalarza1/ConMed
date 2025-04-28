@@ -3,6 +3,7 @@ package ar.edu.unq.spring.jwt.service;
 import ar.edu.unq.spring.controller.dto.CreatePacienteDTO;
 import ar.edu.unq.spring.controller.dto.UsuarioDTO;
 import ar.edu.unq.spring.jwt.modelo.AuthenticationResponse;
+import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Role;
 import ar.edu.unq.spring.modelo.Usuario;
@@ -79,5 +80,32 @@ public class AuthenticationService {
             throw new RuntimeException("DNI invalido");
         Usuario usuario = usuarioDAO.findByDni(dni);
         return usuario;
+    }
+
+    public void registrarMedicoComoUsuario(Medico medico) {
+        Usuario usuario = new Usuario(medico.getDni(), Role.MEDICO);
+        String encodedPassword = passwordEncoder.encode(medico.getPasswordMedico());
+        usuario.setPassword(encodedPassword);
+
+        try {
+            usuarioDAO.save(usuario);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("El DNI ya existe en el sistema.");
+        }
+
+    }
+
+    public void eliminarUsuario(String dni) {
+        if (dni == null) {
+            throw new IllegalArgumentException("El DNI no puede ser nulo.");
+        }
+
+        Usuario usuario = usuarioDAO.findByDni(dni);
+
+        if (usuario == null) {
+            throw new IllegalArgumentException("No se encontró un usuario con el DNI especificado.");
+        }
+
+        usuarioDAO.delete(usuario);
     }
 }
