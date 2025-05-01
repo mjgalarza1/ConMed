@@ -55,7 +55,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div id="LoginPage" className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <div id="LoginPage" className="d-flex justify-content-center align-items-center flex-grow-1 h-100">
             <LoginForm handleSubmitLogin={handleSubmitLogin}/>
         </div>
     );

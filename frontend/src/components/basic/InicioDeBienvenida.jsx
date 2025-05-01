@@ -5,7 +5,7 @@ function InicioDeBienvenida() {
     const navigate = useNavigate();
 
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center text-center gap-4 m-auto" style={{height: '100vh', width: '400px'}}>
+        <div className="d-flex flex-column justify-content-center align-items-center text-center gap-4 m-auto h-100" style={{width: '400px'}}>
             <h1>
                     Bienvenidos a ConMed
             </h1>

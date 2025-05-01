@@ -35,7 +35,7 @@ const RegisterPage = () => {
     }
 
     return (
-        <div id="RegisterPage" className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <div id="RegisterPage" className="d-flex justify-content-center align-items-center flex-grow-1 h-100">
             <RegisterForm handleSubmitRegistration={handleSubmitRegistration}/>
         </div>
     );

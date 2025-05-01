@@ -1,13 +1,13 @@
 import {Outlet} from "react-router-dom";
-import ConmedLogo from "../components/basic/ConmedLogo.jsx";
+import ConmedNavBar from "../components/basic/layout/ConmedNavBar.jsx";
 
 function Layout() {
     return (
         <>
-            <div style={{position: 'absolute', top: '20px', left: '20px'}}>
-                <ConmedLogo/>
+            <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
+                <ConmedNavBar/>
+                <Outlet/>
             </div>
-            <Outlet/>
         </>
     )
 }

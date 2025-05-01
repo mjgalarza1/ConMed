@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import InicioDeBienvenida from "../components/basic/InicioDeBienvenida.jsx";
 import InicioDePaciente from "../components/basic/InicioDePaciente.jsx";
 import InicioDeMedico from "../components/basic/InicioDeMedico.jsx";
@@ -35,7 +34,7 @@ function HomePage() {
     }
 
     return (
-        <div id="HomePage" className="d-flex justify-content-center align-items-center" style={{minHeight: '100vh'}}>
+        <div id="HomePage" className="d-flex justify-content-center align-items-center flex-grow-1 h-100">
             {cargando ? (
                 <div className="text-center">
                     <div className="spinner-border text-primary" role="status">
