@@ -11,6 +11,7 @@ const RegisterPage = () => {
             localStorage.setItem("token", response.data.token);
             await handleDatosDeUsuario(dni);
             navigate("/");
+            window.location.reload();
         } catch (error) {
             console.error("Error al registrarse:", error);
             alert(error.response.data);
