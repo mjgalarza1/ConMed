@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllMedicos, deleteMedico } from "../services/AxiosService.js";
+import { getAllMedicos, getMedicosPorEspecialidad, deleteMedico } from "../services/AxiosService.js";
 import {Alert,Button,Container,Spinner,Table,Form} from "react-bootstrap";
 import ConMedToast from "../components/basic/ConMedToast.jsx";
 import AgregarMedicoModal from "../components/modals/AgregarMedicoModal.jsx";
@@ -49,26 +49,28 @@ const TodosLosMedicosPage = () => {
     };
 
     useEffect(() => {
-        const fetchTodosLosMedicos = async () => {
+        const fetchMedicos = async () => {
             try {
-                const response = await getAllMedicos();
+                setLoading(true);
+                let response;
+
+                if (especialidadSeleccionada === "Todas") {
+                    response = await getAllMedicos();
+                } else {
+                    response = await getMedicosPorEspecialidad(especialidadSeleccionada);
+                }
+
                 setMedicos(response.data);
+                setError(null);
             } catch (err) {
-                setError(err.message);
+                setError("Error al obtener los médicos");
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchTodosLosMedicos();
-    }, [mostrarToast, mostrarEliminadoToast]);
-
-    const medicosFiltrados =
-        especialidadSeleccionada === "Todas"
-            ? medicos
-            : medicos.filter(
-                (medico) => medico.especialidad === especialidadSeleccionada
-            );
+        fetchMedicos();
+    }, [especialidadSeleccionada, mostrarToast, mostrarEliminadoToast]);
 
     return (
         <>
@@ -142,7 +144,7 @@ const TodosLosMedicosPage = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {medicosFiltrados.map((medico, index) => (
+                            {medicos.map((medico, index) => (
                                 <tr className="text-center" key={index}>
                                     <td>{medico.nombre}</td>
                                     <td>{medico.apellido}</td>
