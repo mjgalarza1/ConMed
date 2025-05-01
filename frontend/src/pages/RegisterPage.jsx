@@ -11,6 +11,7 @@ const RegisterPage = () => {
             localStorage.setItem("token", response.data.token);
             await handleDatosDeUsuario(dni);
             navigate("/");
+            window.location.reload();
         } catch (error) {
             console.error("Error al registrarse:", error);
             alert(error.response.data);
@@ -35,7 +36,7 @@ const RegisterPage = () => {
     }
 
     return (
-        <div id="RegisterPage" className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <div id="RegisterPage" className="d-flex justify-content-center align-items-center flex-grow-1 h-100">
             <RegisterForm handleSubmitRegistration={handleSubmitRegistration}/>
         </div>
     );

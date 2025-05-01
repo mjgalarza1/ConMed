@@ -17,6 +17,7 @@ const LoginPage = () => {
             localStorage.setItem("token", response.data.token);
             await handleDatosDeUsuario(dni);
             navigate("/");
+            window.location.reload();
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
             alert(error.response.data);
@@ -55,7 +56,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div id="LoginPage" className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <div id="LoginPage" className="d-flex justify-content-center align-items-center flex-grow-1 h-100">
             <LoginForm handleSubmitLogin={handleSubmitLogin}/>
         </div>
     );
