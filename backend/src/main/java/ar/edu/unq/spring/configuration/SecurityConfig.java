@@ -51,7 +51,7 @@ public class SecurityConfig {
                                 .hasAuthority("PACIENTE")
                                 .requestMatchers("/medicoDemo/**", "/medicos/**")
                                 .hasAuthority("MEDICO")
-                                .requestMatchers("/adminDemo/**", "/administrador/**", "/administrador/dni/", "administrador/quitarMedico/")
+                                .requestMatchers("/adminDemo/**", "/administrador/**", "/administrador/dni/", "administrador/quitarMedico/", "administrador/medicosPorEspecialidad/")
                                 .hasAuthority("ADMIN")
                                 // FIN DE EJEMPLOS
                                 .anyRequest()
