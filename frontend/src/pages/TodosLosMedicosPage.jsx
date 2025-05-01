@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getAllMedicos, getMedicosPorEspecialidad, deleteMedico } from "../services/AxiosService.js";
-import {Alert,Button,Container,Spinner,Table,Form} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {getAllMedicos, deleteMedico} from "../services/AxiosService.js";
+import {Alert, Button, Container, Spinner, Table} from "react-bootstrap";
 import ConMedToast from "../components/basic/ConMedToast.jsx";
 import AgregarMedicoModal from "../components/modals/AgregarMedicoModal.jsx";
-import { especialidadesLista } from "../data/especialidades";
 
 const TodosLosMedicosPage = () => {
     const [medicos, setMedicos] = useState([]);
@@ -13,35 +12,38 @@ const TodosLosMedicosPage = () => {
     const [agregarMedicoModalShow, setAgregarMedicoModalShow] = useState(false);
     const [mostrarToast, setMostrarToast] = useState(false);
     const [mostrarEliminadoToast, setMostrarEliminadoToast] = useState(false);
-    const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("Todas");
 
     const navigate = useNavigate();
 
     const handleVolver = () => {
         navigate("/");
-    };
+    }
 
     const handleAgregarMedico = () => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // O el nombre que uses para el token
+
         if (!token) {
             alert("Debe iniciar sesión");
             localStorage.clear();
-            navigate("/");
+            navigate("/"); // Redirigir al inicio
         } else {
-            setAgregarMedicoModalShow(true);
+            setAgregarMedicoModalShow(true); // Mostrar el modal si hay token
         }
-    };
+    }
 
     const handleEliminarMedico = async (medicoId) => {
         try {
             await deleteMedico(medicoId);
             setMostrarEliminadoToast(true);
+            // Refrescar la lista de médicos después de eliminar uno
             setMedicos(medicos.filter((medico) => medico.id !== medicoId));
+            // eslint-disable-next-line no-unused-vars
         } catch (err) {
+            // Si es un error de autenticación (401 o 403), redirigir
             if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-                alert("Debe iniciar sesión");
+                alert("Debe iniciar sesión")
                 localStorage.clear();
-                navigate("/");
+                navigate("/"); // Redirigir al inicio
             } else {
                 setError("Error al eliminar el médico");
             }
@@ -49,31 +51,25 @@ const TodosLosMedicosPage = () => {
     };
 
     useEffect(() => {
-        const fetchMedicos = async () => {
+        const fetchTodosLosMedicos = async () => {
             try {
-                setLoading(true);
-                let response;
-
-                if (especialidadSeleccionada === "Todas") {
-                    response = await getAllMedicos();
-                } else {
-                    response = await getMedicosPorEspecialidad(especialidadSeleccionada);
-                }
-
+                //const user_dni = JSON.parse(localStorage.getItem("usuario"))?.dni;
+                const response = await getAllMedicos();
                 setMedicos(response.data);
-                setError(null);
+                // eslint-disable-next-line no-unused-vars
             } catch (err) {
-                setError("Error al obtener los médicos");
+                setError("Error al obtener todos los medicos");
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchMedicos();
-    }, [especialidadSeleccionada, mostrarToast, mostrarEliminadoToast]);
+        fetchTodosLosMedicos();
+    }, [mostrarToast, mostrarEliminadoToast]);
 
     return (
         <>
+
             <AgregarMedicoModal
                 show={agregarMedicoModalShow}
                 onHide={() => setAgregarMedicoModalShow(false)}
@@ -83,54 +79,33 @@ const TodosLosMedicosPage = () => {
             <ConMedToast
                 mostrarToast={mostrarToast}
                 setMostrarToast={setMostrarToast}
-                titulo="Medico agregado exitosamente"
-                descripcion="Has agregado un Medico"
+                titulo= "Medico agregado exitosamente"
+                descripcion= "Has agregado un Medico"
             />
 
             <ConMedToast
                 mostrarToast={mostrarEliminadoToast}
                 setMostrarToast={setMostrarEliminadoToast}
-                titulo="Medico eliminado exitosamente"
-                descripcion="Has eliminado un Medico"
+                titulo= "Medico eliminado exitosamente"
+                descripcion= "Has eliminado un Medico"
             />
 
             <Container className="mt-5">
                 <h2 className="mb-4 text-center">Todos los Médicos</h2>
-
                 {loading && (
                     <div className="d-flex justify-content-center">
-                        <Spinner animation="border" variant="primary" />
+                        <Spinner animation="border" variant="primary"/>
                     </div>
                 )}
 
                 {error && <Alert variant="danger">{error}</Alert>}
 
                 {!loading && !error && (
+
                     <div className="d-flex flex-column gap-2">
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <Form.Label className="me-2">
-                                    Filtrar por especialidad:
-                                </Form.Label>
-                                <Form.Select
-                                    className="d-inline w-auto"
-                                    value={especialidadSeleccionada}
-                                    onChange={(e) =>
-                                        setEspecialidadSeleccionada(e.target.value)
-                                    }
-                                >
-                                    <option value="Todas">Todas</option>
-                                    {especialidadesLista.sort((a, b) => a.localeCompare(b)).map((esp, idx) => (
-                                        <option key={idx} value={esp}>
-                                            {esp}
-                                        </option>
-                                    ))}
-                                </Form.Select>
-                            </div>
-                            <Button variant="success" onClick={handleAgregarMedico}>
-                                Agregar Médico
-                            </Button>
-                        </div>
+                        <Button variant="success" onClick={handleAgregarMedico} className="ms-auto">
+                            Agregar Medico
+                        </Button>
 
                         <Table striped bordered hover responsive>
                             <thead>
@@ -140,34 +115,33 @@ const TodosLosMedicosPage = () => {
                                 <th>Matricula</th>
                                 <th>DNI</th>
                                 <th>Especialidad</th>
-                                <th>Acciones</th>
+                                {/*<th>Contraseña</th>*/}
+                                {/*<th>Acciones</th>*/}
                             </tr>
                             </thead>
                             <tbody>
-                            {medicos.map((medico, index) => (
+                            {medicos.map((medicos, index) => (
                                 <tr className="text-center" key={index}>
-                                    <td>{medico.nombre}</td>
-                                    <td>{medico.apellido}</td>
-                                    <td>{medico.matricula}</td>
-                                    <td>{medico.dni}</td>
-                                    <td>{medico.especialidad}</td>
+                                    <td>{medicos.nombre}</td>
+                                    <td>{medicos.apellido}</td>
+                                    <td>{medicos.matricula}</td>
+                                    <td>{medicos.dni}</td>
+                                    <td>{medicos.especialidad}</td>
+                                    {/*<td>{medicos.passwordMedico}</td>*/}
                                     <td>
                                         <Button
                                             variant="danger"
                                             onClick={() => {
-                                                const confirmacion = window.confirm(
-                                                    "¿Estás seguro de que querés eliminar este médico?"
-                                                );
+                                                const confirmacion = window.confirm("¿Estás seguro de que querés eliminar este médico?");
                                                 if (confirmacion) {
-                                                    handleEliminarMedico(
-                                                        medico.idMedico
-                                                    );
+                                                    handleEliminarMedico(medicos.idMedico);
                                                     setMostrarEliminadoToast(true);
                                                 }
                                             }}
                                         >
                                             Eliminar
                                         </Button>
+
                                     </td>
                                 </tr>
                             ))}
@@ -175,13 +149,12 @@ const TodosLosMedicosPage = () => {
                         </Table>
                     </div>
                 )}
-
-                <Button variant="primary" className="w-100 mt-4" onClick={handleVolver}>
+                <Button variant="primary" className="w-100" onClick={handleVolver}>
                     Volver
                 </Button>
             </Container>
         </>
-    );
-};
+    )
+}
 
 export default TodosLosMedicosPage;

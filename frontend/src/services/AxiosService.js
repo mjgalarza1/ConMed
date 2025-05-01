@@ -139,7 +139,7 @@ export const deleteMedico = (id) => {
 };
 
 export const getMedicosPorEspecialidad = (especialidad) => {
-    return axiosService.get(`/administrador/medicosPorEspecialidad/${especialidad}`, {
+    return axiosService.get(`/pacientes/medicosPorEspecialidad/${especialidad}`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
