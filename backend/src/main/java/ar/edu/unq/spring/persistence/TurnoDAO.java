@@ -21,6 +21,7 @@ public interface TurnoDAO extends JpaRepository<Turno, Long> {
 
     @Query("""
         SELECT new ar.edu.unq.spring.controller.dto.TurnoReservadoDTO(
+            t.id,
             t.fecha,
             t.hora,
             CONCAT(m.nombre, ' ', m.apellido),
