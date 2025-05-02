@@ -32,6 +32,11 @@ public class TurnoControllerREST {
         return ResponseEntity.status(HttpStatus.CREATED).body(TurnoDTO.desdeModelo(nuevoTurno));
     }
 
+    @PutMapping("/paciente/cancelar/{id_turno}")
+    public ResponseEntity<TurnoDTO> cancelarTurno(@PathVariable Long id_turno){
+        return ResponseEntity.ok(TurnoDTO.desdeModelo(turnoService.cancelarTurno(id_turno)));
+    }
+
     @GetMapping("/paciente/{id_paciente}")
     public Set<TurnoDTO> turnosDelPaciente(@PathVariable Long id_paciente){
         return turnoService.obtenerTurnoByPaciente(id_paciente).stream().map(TurnoDTO::desdeModelo).collect(Collectors.toSet());

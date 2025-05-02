@@ -104,6 +104,22 @@ public class TurnoServiceImpl implements TurnoService {
     }
 
     @Override
+    public Turno cancelarTurno(Long idTurno) {
+        Turno turnoRecuperado = turnoDAO.findById(idTurno)
+                .orElseThrow(() -> new IllegalArgumentException("No existe ningún turno con este ID: " + idTurno));
+
+        if (turnoRecuperado.getDisponibilidad() != TurnoDisponibilidad.RESERVADO) {
+            throw new IllegalArgumentException("No se puede cancelar un turno que no está reservado");
+        }
+
+        turnoRecuperado.setDisponibilidad(TurnoDisponibilidad.DISPONIBLE);
+        turnoReservadoDAO.deleteTurnoReservadoById(idTurno);
+        turnoDAO.save(turnoRecuperado);
+
+        return turnoRecuperado;
+    }
+
+    @Override
     public Set<Turno> obtenerTurnoByPaciente(Long pacienteId) {
         Paciente pacienteBD = pacienteDAO.findById(pacienteId)
                 .orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID"));
