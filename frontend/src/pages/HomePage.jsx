@@ -20,7 +20,6 @@ function HomePage() {
 
     const inicioDeRol = () => {
         if (estaLogueado) {
-            console.log(role)
             if (role === "PACIENTE") {
                 return <InicioDePaciente setEstaLogueado={setEstaLogueado}/>;
             } else if (role === "MEDICO") {
