@@ -89,6 +89,18 @@ export const reservarTurno = (idPaciente, idTurno) => {
     );
 };
 
+export const cancelarTurno = (idTurno) => {
+    return axiosService.put(
+        `/turnos/paciente/cancelar/${idTurno}`,
+        {},
+        {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        }
+    );
+};
+
 export const agregarTurno = (medicoId, fecha, hora, disponibilidad) => {
     return axiosService.post(
         '/medicos/agregarTurno',
