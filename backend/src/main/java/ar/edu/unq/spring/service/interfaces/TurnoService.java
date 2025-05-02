@@ -18,6 +18,7 @@ public interface TurnoService {
     void actualizarTurno(Long id, Turno turnoNuevo);
     void eliminarTurno(Turno turno);
     Turno reservarTurno(Long pacienteId, Turno turno);
+    Turno cancelarTurno(Long idTurno);
     Set<Turno> obtenerTurnoByPaciente(Long pacienteId);
     Set<TurnosMedicoDTO> obtenerTurnosByDniMedico(String medicoDni);
     Set<Turno> obtenerTurnosDisponiblesDeMedicoById(Long medicoId);
