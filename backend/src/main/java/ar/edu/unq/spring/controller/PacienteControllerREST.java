@@ -74,4 +74,9 @@ public class PacienteControllerREST {
         List<MedicoDTO> medicosDTO = medicos.stream().map(MedicoDTO::desdeModelo).toList();
         return ResponseEntity.ok(medicosDTO);
     }
+
+    @GetMapping("/medicosPorEspecialidad/{especialidad}")
+    public Set<MedicoDTO> obtenerMedicosPorEspecialidad(@PathVariable String especialidad) {
+        return medicoService.allMedicos().stream().filter(medico -> medico.getEspecialidad().equalsIgnoreCase(especialidad)).map(MedicoDTO::desdeModelo).collect(Collectors.toSet());
+    }
 }

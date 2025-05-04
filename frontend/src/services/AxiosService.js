@@ -1,4 +1,5 @@
 import axios from "axios";
+import {especialidadesLista} from "../data/especialidades.js";
 
 const axiosService = axios.create({
     baseURL: 'http://localhost:8080',
@@ -143,6 +144,14 @@ export const agregarMedico = (nombre, apellido, dni, especialidad, matricula, pa
 
 export const deleteMedico = (id) => {
     return axiosService.delete(`/administrador/quitarMedico/${id}`,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const getMedicosPorEspecialidad = (especialidad) => {
+    return axiosService.get(`/pacientes/medicosPorEspecialidad/${especialidad}`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },

@@ -23,5 +23,6 @@ export const especialidadesLista = [
     "Alergia e Inmunologia",
     "Medicina del Deporte",
     "Medicina del Trabajo",
-    "Anestesiologia"
+    "Anestesiologia",
+    "Diabetologia"
 ];

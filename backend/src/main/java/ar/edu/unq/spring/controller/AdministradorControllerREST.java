@@ -49,4 +49,9 @@ public final class AdministradorControllerREST {
         return administradorService.allMedicos().stream().map(MedicoDTOAdmin::desdeModelo).collect(Collectors.toSet());
     }
 
+    @GetMapping("/medicosPorEspecialidad/{especialidad}")
+    public Set<MedicoDTO> obtenerMedicosPorEspecialidad(@PathVariable String especialidad) {
+        return medicoService.allMedicos().stream().filter(medico -> medico.getEspecialidad().equalsIgnoreCase(especialidad)).map(MedicoDTO::desdeModelo).collect(Collectors.toSet());
+    }
+
 }
