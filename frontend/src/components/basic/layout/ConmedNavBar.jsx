@@ -50,7 +50,7 @@ function ConmedNavBar() {
             />
 
             <Navbar expand="lg" className="bg-white">
-                <Container>
+                <Container fluid>
                     <Navbar.Brand href="/">
                         <ConmedLogo/>
                     </Navbar.Brand>
