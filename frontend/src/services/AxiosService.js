@@ -158,4 +158,12 @@ export const getMedicosPorEspecialidad = (especialidad) => {
     });
 };
 
+export const getAllUsuarios = () => {
+    return axiosService.get(`/administrador/todosLosUsuarios`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
 
