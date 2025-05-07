@@ -10,6 +10,7 @@ import MedicosDisponiblesPage from "./pages/MedicosDisponiblesPage.jsx";
 import ReservasDeTurnosPage from "./pages/ReservasDeTurnosPage.jsx";
 import TurnosDelMedicoPage from "./pages/TurnosDelMedicoPage.jsx";
 import TodosLosMedicosPage from "./pages/TodosLosMedicosPage.jsx";
+import MyProfilePage from "./pages/MyProfilePage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "/todosLosMedicos",
                 element: <TodosLosMedicosPage/>
+            },
+            {
+                path: "/miPerfil",
+                element: <MyProfilePage/>
             }
         ]
     }

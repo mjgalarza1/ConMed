@@ -41,12 +41,29 @@ const LoginPage = () => {
                 break;
             }
 
-            const usuario = {
+            let usuario = {
                 id: responseRole.data.id,
                 dni: response.data.dni,
-                nombre: responseRole.data.nombre,
                 role: response.data.role,
             };
+            if (usuario.role === "MEDICO") {
+                usuario = {
+                    ...usuario,
+                    apellido: responseRole.data.apellido,
+                    matricula: responseRole.data.matricula,
+                    especialidad: responseRole.data.especialidad,
+                };
+            }
+            if (usuario.role === "PACIENTE" || usuario.role === "ADMIN") {
+                const partesNombre = responseRole.data.nombre.split(" ");
+                const nombre = partesNombre.slice(0,1).join(" ");
+                const apellido = partesNombre.slice(-1).join(" ");
+                usuario = {
+                    ...usuario,
+                    nombre: nombre,
+                    apellido: apellido,
+                };
+            }
             localStorage.setItem("usuario", JSON.stringify(usuario));
         } catch (error) {
             console.error("Error al iniciar sesión:", error);

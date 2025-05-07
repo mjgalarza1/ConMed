@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import ConmedLogo from "./ConmedLogo.jsx";
 import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 import CerrarSesionModal from "../../modals/CerrarSesionModal.jsx";
 import {useEffect, useState} from "react";
 
@@ -21,9 +22,22 @@ function ConmedNavBar() {
         </Button>
     };
 
+    const showMiPerfilButton = () => {
+        return <Button
+            variant="outline-primary"
+            onClick={handleMiPerfil}
+        >
+            <FaUserCircle />
+        </Button>
+    };
+
     const handleCerrarSesion = () => {
         setMostrarModal(true);
     };
+
+    const handleMiPerfil = () => {
+        navigate("/miPerfil")
+    }
 
     const confirmarCerrarSesion = () => {
         localStorage.clear();
@@ -55,6 +69,9 @@ function ConmedNavBar() {
                         <ConmedLogo/>
                     </Navbar.Brand>
                     <Navbar.Collapse className="justify-content-end">
+                        <Navbar.Text className="me-2">
+                            {usuarioLogueado ? showMiPerfilButton() : null}
+                        </Navbar.Text>
                         <Navbar.Text>
                             {usuarioLogueado ? showCerrarSesionButton() : null}
                         </Navbar.Text>
