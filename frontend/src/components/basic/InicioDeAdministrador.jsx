@@ -16,6 +16,18 @@ function InicioDeAdministrador() {
         }
     };
 
+    const handleVerUsuarios = () => {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            localStorage.clear();
+            window.location.reload();
+            alert("Debe iniciar sesión");
+        } else {
+            navigate("/todosLosUsuarios");
+        }
+    };
+
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
             <div className="d-flex flex-column justify-content-center align-items-center m-auto gap-4 text-center"
@@ -25,12 +37,17 @@ function InicioDeAdministrador() {
                 <h1>¿Qué acción deseas realizar?</h1>
                 <Stack gap={2} className="m-auto">
                     <Button variant="outline-primary" size="lg" onClick={handleVerMedicos}>
-                        Ver médicos
+                        Gestionar médicos
+                    </Button>
+                    <Button variant="outline-primary" size="lg" onClick={handleVerUsuarios}>
+                        Ver todos los usuarios
                     </Button>
                 </Stack>
             </div>
         </div>
     );
 }
+
+
 
 export default InicioDeAdministrador;

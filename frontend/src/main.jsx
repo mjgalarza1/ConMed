@@ -11,11 +11,12 @@ import ReservasDeTurnosPage from "./pages/ReservasDeTurnosPage.jsx";
 import TurnosDelMedicoPage from "./pages/TurnosDelMedicoPage.jsx";
 import TodosLosMedicosPage from "./pages/TodosLosMedicosPage.jsx";
 import MyProfilePage from "./pages/MyProfilePage.jsx";
+import TodosLosUsuariosPage from './pages/TodosLosUsuariosPage.jsx';
 
 const router = createBrowserRouter([
     {
-        element:<Layout/>,
-        children:[
+        element: <Layout />,
+        children: [
             {
                 path: "/",
                 element: <HomePage />,
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/todosLosMedicos",
-                element: <TodosLosMedicosPage/>
+                element: <TodosLosMedicosPage />
+            },
+            {
+                path: "/todosLosUsuarios",
+                element: <TodosLosUsuariosPage />
             },
             {
                 path: "/miPerfil",
@@ -53,7 +58,8 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+    <StrictMode>
+        <RouterProvider router={router} />
+    </StrictMode>,
 )
+
