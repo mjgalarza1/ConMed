@@ -22,18 +22,20 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
         const { name, value } = e.target;
 
         if (name === "nombre" || name === "apellido") {
-            const soloLetrasYUnEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+(?: [A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+)?$/;
-            if (value === "" || soloLetrasYUnEspacio.test(value)) {
-                setFormData({ ...formData, [name]: value });
+            const soloLetrasYEspacios = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ ]*$/;
+            if (value === "" || soloLetrasYEspacios.test(value)) {
+                const normalizado = value.replace(/\s{2,}/g, " ");
+                setFormData({ ...formData, [name]: normalizado });
             }
         } else if (name === "passwordMedico") {
-            // Solo letras y números permitidos, sin espacios
             const soloAlfanumerico = value.replace(/[^A-Za-z0-9]/g, '');
             setFormData({ ...formData, [name]: soloAlfanumerico });
         } else {
             setFormData({ ...formData, [name]: value });
         }
     };
+
+
 
 
 
@@ -49,12 +51,13 @@ function AgregarMedicoModal({ show, onHide, onAccionExitosa }) {
         }
 
         const soloLetrasSinEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+$/;
+        const soloLetrasYUnEspacio = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+(?: [A-Za-zÁÉÍÓÚÜáéíóúüÑñ]+)?$/;
         const alfanumericoRegex = /^[A-Za-z0-9]+$/;
         const tieneLetra = /[A-Za-z]/;
         const tieneNumero = /\d/;
 
         // Validaciones
-        if (!soloLetrasSinEspacio.test(formData.nombre)) {
+        if (!soloLetrasYUnEspacio.test(formData.nombre)) {
             alert("El nombre es incorrecto.");
             return;
         }

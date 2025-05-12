@@ -25,8 +25,8 @@ public class AdministradorServiceTest {
 
     @BeforeEach
     public void setUp() {
-        admin1 = new Administrador("admin1", "11111111");
-        admin2 = new Administrador("admin2", "22222222");
+        admin1 = new Administrador("admin1","admin","11111111");
+        admin2 = new Administrador("admin2", "admin","22222222");
     }
 
     @Test

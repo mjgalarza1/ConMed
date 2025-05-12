@@ -15,9 +15,9 @@ export const login = (dni, password) => {
         .post('/login', { dni, password });
 };
 
-export const register = (nombre, dni, passwordPaciente) => {
+export const register = (nombre, dni, passwordPaciente, apellido) => {
     return axiosService
-        .post('/registrarPaciente', { nombre, dni, passwordPaciente });
+        .post('/registrarPaciente', { nombre, dni, passwordPaciente, apellido });
 };
 
 export const verMedicosDisponibles = () => {

@@ -49,19 +49,17 @@ const LoginPage = () => {
             if (usuario.role === "MEDICO") {
                 usuario = {
                     ...usuario,
+                    nombre: responseRole.data.nombre,
                     apellido: responseRole.data.apellido,
                     matricula: responseRole.data.matricula,
                     especialidad: responseRole.data.especialidad,
                 };
             }
             if (usuario.role === "PACIENTE" || usuario.role === "ADMIN") {
-                const partesNombre = responseRole.data.nombre.split(" ");
-                const nombre = partesNombre.slice(0,1).join(" ");
-                const apellido = partesNombre.slice(-1).join(" ");
                 usuario = {
                     ...usuario,
-                    nombre: nombre,
-                    apellido: apellido,
+                    nombre: responseRole.data.nombre,
+                    apellido: responseRole.data.apellido,
                 };
             }
             localStorage.setItem("usuario", JSON.stringify(usuario));

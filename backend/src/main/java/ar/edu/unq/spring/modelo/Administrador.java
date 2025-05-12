@@ -16,9 +16,11 @@ public class Administrador {
     @Column(nullable = false, unique = true)
     private String dni;
     private String nombre;
+    private String apellido;
 
-    public Administrador(String nombre, String dni){
+    public Administrador(String nombre, String dni, String apellido){
         this.nombre = nombre;
+        this.apellido = apellido;
         this.dni = dni;
     }
 }
