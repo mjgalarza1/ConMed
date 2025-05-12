@@ -48,7 +48,7 @@ public class AuthenticationService {
         }
 
         // CREAR Y GUARDAR PACIENTE EN BASE DE DATOS
-        Paciente paciente = new Paciente(request.nombre(), request.dni(), encodedPassword);
+        Paciente paciente = new Paciente(request.nombre(), request.dni(), encodedPassword, request.apellido());
         pacienteDAO.save(paciente);
 
         String token = jwtService.generateToken(usuario);

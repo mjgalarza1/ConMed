@@ -1,6 +1,5 @@
 package ar.edu.unq.spring.controller.dto;
 
-import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Role;
 import ar.edu.unq.spring.modelo.Usuario;
 

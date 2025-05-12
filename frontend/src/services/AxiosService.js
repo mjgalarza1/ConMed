@@ -15,9 +15,9 @@ export const login = (dni, password) => {
         .post('/login', { dni, password });
 };
 
-export const register = (nombre, dni, passwordPaciente) => {
+export const register = (nombre, dni, passwordPaciente, apellido) => {
     return axiosService
-        .post('/registrarPaciente', { nombre, dni, passwordPaciente });
+        .post('/registrarPaciente', { nombre, dni, passwordPaciente, apellido });
 };
 
 export const verMedicosDisponibles = () => {
@@ -152,6 +152,14 @@ export const deleteMedico = (id) => {
 
 export const getMedicosPorEspecialidad = (especialidad) => {
     return axiosService.get(`/pacientes/medicosPorEspecialidad/${especialidad}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const getAllUsuarios = () => {
+    return axiosService.get(`/administrador/todosLosUsuarios`, {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },

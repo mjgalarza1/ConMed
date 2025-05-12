@@ -7,7 +7,10 @@ const RegisterPage = () => {
 
     const handleSubmitRegistration = async (nombre, dni, password) => {
         try {
-            const response = await register(nombre, dni, password);
+            const nombreCompleto = nombre.trim().split(" ");
+            const soloApellido = nombreCompleto.pop();
+            const soloNombre = nombreCompleto.join(" ");
+            const response = await register(soloNombre, dni, password, soloApellido);
             localStorage.setItem("token", response.data.token);
             await handleDatosDeUsuario(dni);
             navigate("/");
@@ -21,10 +24,14 @@ const RegisterPage = () => {
     const handleDatosDeUsuario = async (dni) => {
         try {
             const response = await getPacienteByDni(dni);
+            const nombreCompleto = response.data.nombre.trim().split(" ");
+            const soloApellido = nombreCompleto.pop();
+            const soloNombre = nombreCompleto.join(" ");
             const usuario = {
                 id: response.data.id,
                 dni: response.data.dni,
-                nombre: response.data.nombre,
+                nombre: soloNombre,
+                apellido: soloApellido,
                 role: "PACIENTE"
             };
             localStorage.setItem("usuario", JSON.stringify(usuario));
