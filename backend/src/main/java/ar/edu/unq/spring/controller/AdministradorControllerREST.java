@@ -63,7 +63,7 @@ public final class AdministradorControllerREST {
 
         todos.addAll(
                 administradorService.allAdministradores().stream()
-                        .map(admin -> new UsuarioDTOAdmin(admin.getIdAdmin(), admin.getDni(), admin.getNombre(), Role.ADMIN))
+                        .map(admin -> new UsuarioDTOAdmin(admin.getIdAdmin(), admin.getDni(), admin.getNombre() + " " + admin.getApellido(), Role.ADMIN))
                         .toList()
         );
 
@@ -75,7 +75,7 @@ public final class AdministradorControllerREST {
 
         todos.addAll(
                 pacienteService.allPacientes().stream()
-                        .map(paciente -> new UsuarioDTOAdmin(paciente.getIdPaciente(), paciente.getDni(), paciente.getNombre(), Role.PACIENTE))
+                        .map(paciente -> new UsuarioDTOAdmin(paciente.getIdPaciente(), paciente.getDni(), paciente.getNombre() + " " + paciente.getApellido(), Role.PACIENTE))
                         .toList()
         );
 
