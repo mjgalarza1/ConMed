@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {Table, Container, Spinner, Alert, Button, Form} from "react-bootstrap";
 import {verMedicosDisponibles, getMedicosPorEspecialidad} from "../services/AxiosService.js";
 import {useNavigate} from "react-router-dom";
@@ -14,6 +14,7 @@ const MedicosDisponiblesPage = () => {
     const [medicoSeleccionado, setMedicoSeleccionado] = useState(null);
     const [mostrarToast, setMostrarToast] = useState(false);
     const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("Todas"); // ⬅️ NUEVO
+    const [nombreSeleccionado , setNombreSeleccionado] = useState("");
 
     const navigate = useNavigate();
 
@@ -50,10 +51,23 @@ const MedicosDisponiblesPage = () => {
         fetchMedicos();
     }, [especialidadSeleccionada]);
 
-    const medicosFiltrados =
-        especialidadSeleccionada === "Todas"
-            ? medicos
-            : medicos.filter((medico) => medico.especialidad === especialidadSeleccionada);
+    useEffect(() => {
+        console.log(nombreSeleccionado)
+        console.log(medicosFiltrados)
+    }, [nombreSeleccionado]);
+
+    const medicosFiltrados = medicos.filter((medico) => {
+        const coincideEspecialidad =
+            especialidadSeleccionada === "Todas" || medico.especialidad === especialidadSeleccionada;
+
+        const coincideNombre =
+            nombreSeleccionado.trim() === "" ||
+            medico.nombre.toLowerCase().includes(nombreSeleccionado.toLowerCase());
+
+        return coincideEspecialidad && coincideNombre;
+    });
+
+
 
     return (
         <>
@@ -84,7 +98,7 @@ const MedicosDisponiblesPage = () => {
 
                 {!loading && !error && (
                     <>
-                        <div className="d-flex justify-content-between align-items-center mb-3">
+                        <div className="d-flex justify-content-between align-items-center bg-danger mb-3">
                             <div>
                                 <label htmlFor="especialidadSelect" className="me-2">Filtrar por especialidad:</label>
                                 <Form.Select
@@ -101,6 +115,16 @@ const MedicosDisponiblesPage = () => {
                                     ))}
                                 </Form.Select>
                             </div>
+                            <div className="d-flex align-items-center ">
+                                <label className="me-2">Filtrar por nombre:</label>
+                                <Form.Control
+                                    type="text"
+                                    className="d-inline w-auto"
+                                    id="inputPassword5"
+                                    onChange={(e) => setNombreSeleccionado(e.target.value)}
+                                />
+                            </div>
+
                         </div>
 
                         <Table striped bordered hover responsive>
