@@ -1,5 +1,4 @@
 import axios from "axios";
-import {especialidadesLista} from "../data/especialidades.js";
 
 const axiosService = axios.create({
     baseURL: 'http://localhost:8080',
@@ -15,9 +14,9 @@ export const login = (dni, password) => {
         .post('/login', { dni, password });
 };
 
-export const register = (nombre, dni, passwordPaciente, apellido) => {
+export const register = (nombre, dni, passwordPaciente, apellido, mail) => {
     return axiosService
-        .post('/registrarPaciente', { nombre, dni, passwordPaciente, apellido });
+        .post('/registrarPaciente', { nombre, dni, passwordPaciente, apellido, mail });
 };
 
 export const verMedicosDisponibles = () => {

@@ -5,12 +5,12 @@ import RegisterForm from "../components/forms/RegisterForm/RegisterForm.jsx";
 const RegisterPage = () => {
     const navigate = useNavigate();
 
-    const handleSubmitRegistration = async (nombre, dni, password) => {
+    const handleSubmitRegistration = async (nombre, dni, password, mail) => {
         try {
             const nombreCompleto = nombre.trim().split(" ");
             const soloApellido = nombreCompleto.pop();
             const soloNombre = nombreCompleto.join(" ");
-            const response = await register(soloNombre, dni, password, soloApellido);
+            const response = await register(soloNombre, dni, password, soloApellido, mail);
             localStorage.setItem("token", response.data.token);
             await handleDatosDeUsuario(dni);
             navigate("/");
@@ -32,7 +32,8 @@ const RegisterPage = () => {
                 dni: response.data.dni,
                 nombre: soloNombre,
                 apellido: soloApellido,
-                role: "PACIENTE"
+                role: "PACIENTE",
+                mail: response.data.mail
             };
             localStorage.setItem("usuario", JSON.stringify(usuario));
         } catch (error) {

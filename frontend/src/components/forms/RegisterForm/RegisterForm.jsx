@@ -6,10 +6,11 @@ const RegisterForm = ({handleSubmitRegistration}) => {
     const [dni, setDni] = useState("");
     const [passwordPaciente, setPasswordPaciente] = useState("");
     const [nombre, setNombre] = useState("");
+    const [mail, setMail] = useState("");
 
     const onSubmit = (e) => {
         e.preventDefault();
-        handleSubmitRegistration(nombre, dni, passwordPaciente);
+        handleSubmitRegistration(nombre, dni, passwordPaciente, mail);
     }
 
     return (
@@ -40,6 +41,15 @@ const RegisterForm = ({handleSubmitRegistration}) => {
                         pattern="[0-9]*"
                         placeholder="Ingrese su DNI"
                         onChange={(e => setDni(e.currentTarget.value))}
+                    />
+                </Form.Group>
+
+                <Form.Group className="mb-3 pt-2" controlId="formEmail">
+                    <Form.Label>Correo Electrónico</Form.Label>
+                    <Form.Control
+                        type="email"
+                        placeholder="Ingrese su correo electrónico"
+                        onChange={(e => setMail(e.currentTarget.value))}
                     />
                 </Form.Group>
 
