@@ -24,18 +24,22 @@ public class Paciente {
     private String apellido;
     @Size(min = 6, message = "La contraseña debe tener un mínimo de 6 caracteres")
     private String passwordPaciente;
+    @Column(nullable = false, unique = true)
+    private String mail;
 
-    public Paciente(String nombre,String dni, String apellido) {
+    public Paciente(String nombre,String dni, String apellido, String mail) {
         this.nombre = nombre;
         this.dni = dni;
         this.apellido = apellido;
+        this.mail = mail;
     }
 
-    public Paciente(String nombre, String dni, String passwordPaciente, String apellido) {
+    public Paciente(String nombre, String dni, String passwordPaciente, String apellido, String mail) {
         this.nombre = nombre;
         this.dni = dni;
         this.passwordPaciente = passwordPaciente;
         this.apellido = apellido;
+        this.mail = mail;
     }
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = false,fetch = FetchType.EAGER)

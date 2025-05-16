@@ -16,6 +16,8 @@ public class Validator {
     private static final String DNI_SOLO_ADMITE_NUMEROS = "El DNI debe contener solo números.";
     private static final String PATRON_CONTRASENIA_ALFANUMERICA = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]+$";
     private static final String PATRON_DNI_NUMERICO = "^\\d+$";
+    private static final String PATRON_EMAIL_VALIDO = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    private static final String MAIL_VACIO_O_INVALIDO = "Formato de email incorrecto, ingrese uno válido.";
 
     private Validator() {}
 
@@ -57,6 +59,9 @@ public class Validator {
         }
         if (createPacienteDTO.passwordPaciente().length() < 6) {
             throw new IllegalArgumentException(CONTRASENIA_CANT_CARACTERES_MIN);
+        }
+        if (createPacienteDTO.mail() == null || createPacienteDTO.mail().isBlank() || !createPacienteDTO.mail().matches(PATRON_EMAIL_VALIDO)) {
+            throw new IllegalArgumentException(MAIL_VACIO_O_INVALIDO);
         }
     }
 
