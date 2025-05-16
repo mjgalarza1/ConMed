@@ -55,7 +55,16 @@ const LoginPage = () => {
                     especialidad: responseRole.data.especialidad,
                 };
             }
-            if (usuario.role === "PACIENTE" || usuario.role === "ADMIN") {
+            if (usuario.role === "PACIENTE") {
+                usuario = {
+                    ...usuario,
+                    nombre: responseRole.data.nombre,
+                    apellido: responseRole.data.apellido,
+                    mail: responseRole.data.mail
+                };
+            }
+
+            if (usuario.role === "ADMIN") {
                 usuario = {
                     ...usuario,
                     nombre: responseRole.data.nombre,

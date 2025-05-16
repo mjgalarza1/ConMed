@@ -22,7 +22,7 @@ const MyProfilePage = () => {
 
     if (!usuario) return null;
 
-    const { nombre, apellido, dni, role, matricula, especialidad } = usuario;
+    const { nombre, apellido, dni, role, matricula, especialidad, mail } = usuario;
 
     return (
         <Container className="mt-4">
@@ -33,6 +33,11 @@ const MyProfilePage = () => {
                         <Row md={6}><strong>Nombre:</strong> {nombre}</Row>
                         <Row md={6}><strong>Apellido:</strong> {apellido}</Row>
                         <Row md={6}><strong>DNI:</strong> {dni}</Row>
+                        {role === "PACIENTE" && (
+                            <Row>
+                                <Row md={6}><strong>Correo Electrónico:</strong> {mail}</Row>
+                            </Row>
+                        )}
                         <Row md={6}><strong>Rol:</strong> {role}</Row>
                         {role === "MEDICO" && (
                             <Row>
