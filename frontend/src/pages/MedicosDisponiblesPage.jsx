@@ -1,6 +1,9 @@
 import { useEffect, useState} from "react";
 import {Table, Container, Spinner, Alert, Button, Form} from "react-bootstrap";
-import {verMedicosDisponibles, getMedicosPorEspecialidad} from "../services/AxiosService.js";
+import {
+    verMedicosDisponibles,
+    getMedicosPorEspecialidad, getEstaDisponibleElMedico
+} from "../services/AxiosService.js";
 import {useNavigate} from "react-router-dom";
 import ConfirmarTurnoModal from "../components/modals/ConfirmarTurnoModal.jsx";
 import ConMedToast from "../components/basic/ConMedToast.jsx";
@@ -15,6 +18,7 @@ const MedicosDisponiblesPage = () => {
     const [mostrarToast, setMostrarToast] = useState(false);
     const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("Todas"); // ⬅️ NUEVO
     const [nombreSeleccionado , setNombreSeleccionado] = useState("");
+    const [mostrarSoloDisponibles , setMostrarSoloDisponibles] = useState(false)
 
     const navigate = useNavigate();
 
@@ -30,7 +34,7 @@ const MedicosDisponiblesPage = () => {
     useEffect(() => {
         const fetchMedicos = async () => {
             try {
-                setLoading(true);
+                //setLoading(true);
                 let response;
 
                 if (especialidadSeleccionada === "Todas") {
@@ -39,21 +43,31 @@ const MedicosDisponiblesPage = () => {
                     response = await getMedicosPorEspecialidad(especialidadSeleccionada);
                 }
 
-                setMedicos(response.data);
+                const medicosConDisponibilidad = await Promise.all(
+                    response.data.map(async (medico) => {
+                        try {
+                            const res = await getEstaDisponibleElMedico(medico.id);
+                            return { ...medico, estaDisponible: res.data };
+                        } catch (err) {
+                            console.log("Error al obtener disponibilidad de", medico.nombre, err);
+                            return { ...medico, estaDisponible: false };
+                        }
+                    })
+                );
+
+                setMedicos(medicosConDisponibilidad);
                 setError(null);
             } catch (err) {
                 setError("Error al obtener los médicos");
             } finally {
-                setLoading(false);
+                //setLoading(false);
             }
         };
 
         fetchMedicos();
-    }, [especialidadSeleccionada]);
+    }, [especialidadSeleccionada, mostrarSoloDisponibles]);
 
     useEffect(() => {
-        console.log(nombreSeleccionado)
-        console.log(medicosFiltrados)
     }, [nombreSeleccionado]);
 
     const medicosFiltrados = medicos.filter((medico) => {
@@ -64,7 +78,9 @@ const MedicosDisponiblesPage = () => {
             nombreSeleccionado.trim() === "" ||
             medico.nombre.toLowerCase().includes(nombreSeleccionado.toLowerCase());
 
-        return coincideEspecialidad && coincideNombre;
+        const coincideDisponibilidad = mostrarSoloDisponibles ? medico.estaDisponible : true;
+
+        return coincideEspecialidad && coincideNombre && coincideDisponibilidad;
     });
 
 
@@ -98,7 +114,7 @@ const MedicosDisponiblesPage = () => {
 
                 {!loading && !error && (
                     <>
-                        <div className="d-flex justify-content-between align-items-center bg-danger mb-3">
+                        <div className="d-flex justify-content-between align-items-center mb-3">
                             <div>
                                 <label htmlFor="especialidadSelect" className="me-2">Filtrar por especialidad:</label>
                                 <Form.Select
@@ -116,7 +132,7 @@ const MedicosDisponiblesPage = () => {
                                 </Form.Select>
                             </div>
                             <div className="d-flex align-items-center ">
-                                <label className="me-2">Filtrar por nombre:</label>
+                                <label className="me-2">Buscar por nombre:</label>
                                 <Form.Control
                                     type="text"
                                     className="d-inline w-auto"
@@ -124,6 +140,16 @@ const MedicosDisponiblesPage = () => {
                                     onChange={(e) => setNombreSeleccionado(e.target.value)}
                                 />
                             </div>
+                            <div>
+                                <Form.Check
+                                    type="checkbox"
+                                    id="disponiblesCheckbox"
+                                    label="Mostrar solo médicos disponibles"
+                                    checked={mostrarSoloDisponibles}
+                                    onChange={(e) => setMostrarSoloDisponibles(e.target.checked)}
+                                />
+                            </div>
+
 
                         </div>
 

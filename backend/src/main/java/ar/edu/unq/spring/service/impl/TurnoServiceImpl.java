@@ -139,7 +139,7 @@ public class TurnoServiceImpl implements TurnoService {
     public Set<TurnosMedicoDTO> obtenerTurnosByDniMedico(String medicoDni) {
         return turnoDAO.obtenerTurnosDelMedicoPorDni(medicoDni);
     }
-
+    
     @Override
     public Set<Turno> obtenerTurnosDisponiblesDeMedicoById(Long medicoId) {
         return turnoDAO.obtenerTurnosDisponiblesDelMedico(medicoId);

@@ -79,4 +79,9 @@ public class PacienteControllerREST {
     public Set<MedicoDTO> obtenerMedicosPorEspecialidad(@PathVariable String especialidad) {
         return medicoService.allMedicos().stream().filter(medico -> medico.getEspecialidad().equalsIgnoreCase(especialidad)).map(MedicoDTO::desdeModelo).collect(Collectors.toSet());
     }
+
+    @GetMapping("/disponibilidadDeMedico/{id}")
+    public ResponseEntity<Boolean> estaDisponibleElMedico(@PathVariable Long id) {
+        return ResponseEntity.ok(this.medicoService.estaDisponible(id)) ;
+    }
 }
