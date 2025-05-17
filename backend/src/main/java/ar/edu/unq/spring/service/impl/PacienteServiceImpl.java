@@ -25,6 +25,9 @@ public class PacienteServiceImpl implements PacienteService {
     }
     @Override
     public Paciente guardarPaciente(Paciente paciente) {
+        if (pacienteDAO.existsByMail(paciente.getMail())) {
+            throw new IllegalArgumentException("Ya existe un paciente registrado con ese mail.");
+        }
         return pacienteDAO.save(paciente);
     }
 

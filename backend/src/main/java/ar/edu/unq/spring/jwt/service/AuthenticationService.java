@@ -35,6 +35,8 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse registrarPaciente(CreatePacienteDTO request) {
+        if (!pacienteDAO.existsByMail(request.mail())){
+
         // CREAR Y GUARDAR USUARIO EN BASE DE DATOS
         Usuario usuario = new Usuario(request.dni(), Role.PACIENTE);
         String encodedPassword = passwordEncoder.encode(request.passwordPaciente());
@@ -53,6 +55,9 @@ public class AuthenticationService {
 
         String token = jwtService.generateToken(usuario);
         return new AuthenticationResponse(token);
+        } else {
+            throw new IllegalArgumentException("El mail ingresado ya existe. Por favor ingrese otro mail.");
+        }
     }
 
     public AuthenticationResponse authenticate(Usuario request) {

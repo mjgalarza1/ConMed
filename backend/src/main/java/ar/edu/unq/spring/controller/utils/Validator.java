@@ -2,6 +2,7 @@ package ar.edu.unq.spring.controller.utils;
 
 import ar.edu.unq.spring.controller.dto.CreatePacienteDTO;
 import ar.edu.unq.spring.modelo.Usuario;
+import ar.edu.unq.spring.persistence.PacienteDAO;
 
 public class Validator {
 

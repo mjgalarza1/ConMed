@@ -11,4 +11,7 @@ public interface PacienteDAO extends JpaRepository<Paciente, Long> {
 
     @Query("SELECT p FROM Paciente p WHERE p.dni = ?1")
     Paciente findByDni(String dni);
+
+    @Query("SELECT COUNT(p) > 0 FROM Paciente p WHERE p.mail = ?1")
+    boolean existsByMail(String mail);
 }
