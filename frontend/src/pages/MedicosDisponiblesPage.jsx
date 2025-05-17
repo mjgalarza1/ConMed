@@ -34,7 +34,7 @@ const MedicosDisponiblesPage = () => {
     useEffect(() => {
         const fetchMedicos = async () => {
             try {
-                //setLoading(true);
+                setLoading(true);
                 let response;
 
                 if (especialidadSeleccionada === "Todas") {
@@ -60,7 +60,7 @@ const MedicosDisponiblesPage = () => {
             } catch (err) {
                 setError("Error al obtener los médicos");
             } finally {
-                //setLoading(false);
+                setLoading(false);
             }
         };
 
@@ -76,7 +76,8 @@ const MedicosDisponiblesPage = () => {
 
         const coincideNombre =
             nombreSeleccionado.trim() === "" ||
-            medico.nombre.toLowerCase().includes(nombreSeleccionado.toLowerCase());
+            medico.nombre.toLowerCase().includes(nombreSeleccionado.toLowerCase()) ||
+            medico.apellido.toLowerCase().includes(nombreSeleccionado.toLowerCase());
 
         const coincideDisponibilidad = mostrarSoloDisponibles ? medico.estaDisponible : true;
 
