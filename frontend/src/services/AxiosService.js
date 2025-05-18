@@ -165,6 +165,14 @@ export const getAllUsuarios = () => {
     });
 };
 
+export const getAllMails = () => {
+    return axiosService.get(`/pacientes/todosLosMails`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
 export const actualizarPerfil = (usuario) => {
     const { id, role } = usuario;
 

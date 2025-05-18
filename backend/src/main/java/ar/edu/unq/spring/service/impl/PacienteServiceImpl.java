@@ -71,4 +71,9 @@ public class PacienteServiceImpl implements PacienteService {
     public void clearAll() {
         pacienteDAO.deleteAll();
     }
+
+    @Override
+    public List<String> getMails() {
+        return pacienteDAO.getMails();
+    }
 }

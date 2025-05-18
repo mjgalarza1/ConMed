@@ -4,6 +4,7 @@ import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Paciente;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PacienteService {
     List<Paciente> allPacientes();
@@ -14,4 +15,5 @@ public interface PacienteService {
     default void actualizarPaciente(Long pacienteId, Paciente pacienteNuevo){}
     void eliminarPaciente(Long pacienteId);
     void clearAll();
+    List<String> getMails();
 }

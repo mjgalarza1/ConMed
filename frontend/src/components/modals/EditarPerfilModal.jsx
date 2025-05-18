@@ -1,5 +1,13 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import {getAllMails} from "../../services/AxiosService.js";
+
+// Simula un llamado a base de datos
+const emailExiste = async (email) => {
+    const response = await getAllMails();
+    const emailsEnUso = response.data;
+    return emailsEnUso.includes(email.toLowerCase());
+};
 
 const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
     const [formData, setFormData] = useState({
@@ -10,6 +18,7 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
     });
 
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (usuario) {
@@ -28,7 +37,12 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const validar = () => {
+    const validarEmailFormato = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    };
+
+    const validar = async () => {
         const nuevosErrores = {};
 
         if (!formData.nombre.trim()) {
@@ -43,9 +57,18 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
             nuevosErrores.apellido = "Solo se permiten letras";
         }
 
+        if (usuario.role === "PACIENTE") {
+            const mail = formData.mail.trim();
 
-        if (usuario.role === "PACIENTE" && !formData.mail.includes("@")) {
-            nuevosErrores.mail = "Correo inválido";
+            if (!mail) {
+                nuevosErrores.mail = "El correo no puede estar vacío";
+            } else if (!validarEmailFormato(mail)) {
+                nuevosErrores.mail = "Formato de correo inválido";
+            } else if (mail.split("@").length !== 2) {
+                nuevosErrores.mail = "Debe contener un solo '@'";
+            } else if (await emailExiste(mail) && mail !== usuario.mail) {
+                nuevosErrores.mail = "El correo ya está en uso";
+            }
         }
 
         if (usuario.role === "MEDICO") {
@@ -60,15 +83,19 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
         return Object.keys(nuevosErrores).length === 0;
     };
 
-    const handleSubmit = () => {
-        if (validar()) {
+    const handleSubmit = async () => {
+        setLoading(true);
+        const esValido = await validar();
+        setLoading(false);
+
+        if (esValido) {
             const datosActualizados = {
                 nombre: formData.nombre.trim(),
                 apellido: formData.apellido.trim()
             };
 
             if (usuario.role === "PACIENTE") {
-                datosActualizados.mail = formData.mail;
+                datosActualizados.mail = formData.mail.trim();
             }
 
             if (usuario.role === "MEDICO") {
@@ -116,7 +143,7 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
                     </Form.Group>
 
                     {usuario.role === "PACIENTE" && (
-                        <Form.Group controlId="mail" className="mt-2">
+                        <Form.Group controlId="formEmail" className="mt-2">
                             <Form.Label>Correo electrónico</Form.Label>
                             <Form.Control
                                 type="email"
@@ -152,8 +179,8 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
                 <Button variant="secondary" onClick={handleClose}>
                     Cancelar
                 </Button>
-                <Button variant="primary" onClick={handleSubmit}>
-                    Guardar cambios
+                <Button variant="primary" onClick={handleSubmit} disabled={loading}>
+                    {loading ? "Validando..." : "Guardar cambios"}
                 </Button>
             </Modal.Footer>
         </Modal>
