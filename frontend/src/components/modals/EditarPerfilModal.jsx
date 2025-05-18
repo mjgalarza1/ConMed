@@ -31,13 +31,18 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
     const validar = () => {
         const nuevosErrores = {};
 
-        if (!/^[a-zA-Z\s]+$/.test(formData.nombre)) {
+        if (!formData.nombre.trim()) {
+            nuevosErrores.nombre = "El nombre no puede estar vacío";
+        } else if (!/^[a-zA-Z\s]+$/.test(formData.nombre.trim())) {
             nuevosErrores.nombre = "Solo se permiten letras";
         }
 
-        if (!/^[a-zA-Z\s]+$/.test(formData.apellido)) {
+        if (!formData.apellido.trim()) {
+            nuevosErrores.apellido = "El apellido no puede estar vacío";
+        } else if (!/^[a-zA-Z\s]+$/.test(formData.apellido.trim())) {
             nuevosErrores.apellido = "Solo se permiten letras";
         }
+
 
         if (usuario.role === "PACIENTE" && !formData.mail.includes("@")) {
             nuevosErrores.mail = "Correo inválido";
@@ -58,8 +63,8 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
     const handleSubmit = () => {
         if (validar()) {
             const datosActualizados = {
-                nombre: formData.nombre,
-                apellido: formData.apellido
+                nombre: formData.nombre.trim(),
+                apellido: formData.apellido.trim()
             };
 
             if (usuario.role === "PACIENTE") {
