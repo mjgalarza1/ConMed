@@ -11,10 +11,7 @@ public interface PacienteService {
     Paciente recuperarPacientePorId(Long pacienteId);
     Paciente recuperarPacientePorDni(String dni);
 
-    default void actualizarPaciente(Long pacienteId, Paciente pacienteNuevo) {
-
-    }
-
+    default void actualizarPaciente(Long pacienteId, Paciente pacienteNuevo){}
     void eliminarPaciente(Long pacienteId);
     void clearAll();
 }

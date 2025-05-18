@@ -165,4 +165,28 @@ export const getAllUsuarios = () => {
     });
 };
 
+export const actualizarPerfil = (usuario) => {
+    const { id, role } = usuario;
+
+    let endpoint = "";
+    switch (role) {
+        case "PACIENTE":
+            endpoint = `/pacientes/${id}`;
+            break;
+        case "MEDICO":
+            endpoint = `/medicos/${id}`;
+            break;
+        case "ADMIN":
+            endpoint = `/administrador/${id}`;
+            break;
+        default:
+            throw new Error("Rol no soportado");
+    }
+
+    return axiosService.put(endpoint, usuario, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
 

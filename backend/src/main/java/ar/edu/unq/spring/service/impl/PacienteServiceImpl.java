@@ -55,7 +55,9 @@ public class PacienteServiceImpl implements PacienteService {
                 .orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID"));
 
         pacienteNuevo.setNombre(pacienteActualizado.getNombre());
+        pacienteNuevo.setApellido(pacienteActualizado.getApellido());
         pacienteNuevo.setTurnos(pacienteActualizado.getTurnos());
+        pacienteNuevo.setMail(pacienteActualizado.getMail());
 
         this.pacienteDAO.save(pacienteNuevo);
     }
