@@ -74,11 +74,6 @@ const MedicosDisponiblesPage = () => {
         const coincideEspecialidad =
             especialidadSeleccionada === "Todas" || medico.especialidad === especialidadSeleccionada;
 
-        // const coincideNombre =
-        //     nombreSeleccionado.trim() === "" ||
-        //     medico.nombre.toLowerCase().includes(nombreSeleccionado.toLowerCase()) ||
-        //     medico.apellido.toLowerCase().includes(nombreSeleccionado.toLowerCase());
-
         const coincideNombre = nombreSeleccionado.trim() === "" ||
             `${medico.nombre} ${medico.apellido}`.toLowerCase().includes(nombreSeleccionado.toLowerCase());
 
