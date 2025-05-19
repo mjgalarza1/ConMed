@@ -94,4 +94,9 @@ public class MedicoServiceImpl implements MedicoService {
     public void eliminarMedico(Long medicoId) {
         medicoDAO.deleteById(medicoId);
     }
+
+    @Override
+    public List<String> getAllMatriculas() {
+        return medicoDAO.getAllMatriculas();
+    }
 }

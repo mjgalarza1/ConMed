@@ -1,12 +1,17 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import {getAllMails} from "../../services/AxiosService.js";
+import {getAllMails, getAllMatriculas} from "../../services/AxiosService.js";
 
-// Simula un llamado a base de datos
 const emailExiste = async (email) => {
     const response = await getAllMails();
     const emailsEnUso = response.data;
     return emailsEnUso.includes(email.toLowerCase());
+};
+
+const matriculaExiste = async (matricula) => {
+    const response = await getAllMatriculas();
+    const matriculasExistentes = response.data;
+    return matriculasExistentes.includes(matricula);
 };
 
 const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
@@ -76,6 +81,8 @@ const EditarPerfilModal = ({ show, handleClose, usuario, onGuardar }) => {
                 nuevosErrores.matricula = "Campo obligatorio";
             } else if (!/^MD-\d{6}$/.test(formData.matricula)) {
                 nuevosErrores.matricula = "Formato inválido. Debe ser MD- seguido de 6 números (ej. MD-512369)";
+            } else if (await matriculaExiste(formData.matricula) && formData.matricula !== usuario.matricula){
+                nuevosErrores.matricula = "La matrícula ya está en uso"
             }
         }
 

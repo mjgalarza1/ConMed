@@ -173,6 +173,14 @@ export const getAllMails = () => {
     });
 };
 
+export const getAllMatriculas = () => {
+    return axiosService.get(`/medicos/getAllMatriculas`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
 export const actualizarPerfil = (usuario) => {
     const { id, role } = usuario;
 
