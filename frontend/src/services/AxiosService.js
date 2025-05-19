@@ -1,5 +1,4 @@
 import axios from "axios";
-import {especialidadesLista} from "../data/especialidades.js";
 
 const axiosService = axios.create({
     baseURL: 'http://localhost:8080',
@@ -15,9 +14,9 @@ export const login = (dni, password) => {
         .post('/login', { dni, password });
 };
 
-export const register = (nombre, dni, passwordPaciente, apellido) => {
+export const register = (nombre, dni, passwordPaciente, apellido, mail) => {
     return axiosService
-        .post('/registrarPaciente', { nombre, dni, passwordPaciente, apellido });
+        .post('/registrarPaciente', { nombre, dni, passwordPaciente, apellido, mail });
 };
 
 export const verMedicosDisponibles = () => {
@@ -175,4 +174,44 @@ export const getAllUsuarios = () => {
 
 
 
+export const getAllMails = () => {
+    return axiosService.get(`/pacientes/todosLosMails`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const getAllMatriculas = () => {
+    return axiosService.get(`/medicos/getAllMatriculas`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const actualizarPerfil = (usuario) => {
+    const { id, role } = usuario;
+
+    let endpoint = "";
+    switch (role) {
+        case "PACIENTE":
+            endpoint = `/pacientes/${id}`;
+            break;
+        case "MEDICO":
+            endpoint = `/medicos/${id}`;
+            break;
+        case "ADMIN":
+            endpoint = `/administrador/${id}`;
+            break;
+        default:
+            throw new Error("Rol no soportado");
+    }
+
+    return axiosService.put(endpoint, usuario, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
 

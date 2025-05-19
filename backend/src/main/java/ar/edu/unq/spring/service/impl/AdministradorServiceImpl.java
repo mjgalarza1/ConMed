@@ -75,4 +75,18 @@ public class AdministradorServiceImpl implements AdministradorService {
     public List<Medico> allMedicos() {
         return medicoService.allMedicos();
     }
+
+    @Override
+    public void actualizarAdministrador(Long administradorId, Administrador adminActualizado) {
+        if(administradorId == null)
+            throw new RuntimeException("ID invalido");
+
+        Administrador adminNuevo = this.administradorDAO.findById(administradorId)
+                .orElseThrow(() -> new RuntimeException("No existe ningun Paciente con este ID"));
+
+        adminNuevo.setNombre(adminActualizado.getNombre());
+        adminNuevo.setApellido(adminActualizado.getApellido());
+
+        this.administradorDAO.save(adminNuevo);
+    }
 }

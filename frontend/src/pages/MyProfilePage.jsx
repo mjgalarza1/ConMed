@@ -1,11 +1,12 @@
-import { Card, Container, Row, Col } from "react-bootstrap";
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { Card, Container, Row, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import EditarPerfilModal from "../components/modals/EditarPerfilModal.jsx";
+import { actualizarPerfil } from "../services/AxiosService"; // 🔄 Import axios function
 
 const MyProfilePage = () => {
-
     const [usuario, setUsuario] = useState(null);
-
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,7 +23,21 @@ const MyProfilePage = () => {
 
     if (!usuario) return null;
 
-    const { nombre, apellido, dni, role, matricula, especialidad } = usuario;
+    const handleGuardarCambios = async (nuevosDatos) => {
+        const usuarioActualizado = { ...usuario, ...nuevosDatos };
+
+        try {
+            await actualizarPerfil(usuarioActualizado);
+            setUsuario(usuarioActualizado);
+            localStorage.setItem("usuario", JSON.stringify(usuarioActualizado));
+            alert("Perfil actualizado con éxito.");
+        } catch (error) {
+            console.error("Error al actualizar perfil:", error);
+            alert("Error al actualizar el perfil.");
+        }
+    };
+
+    const { nombre, apellido, dni, role, matricula, especialidad, mail } = usuario;
 
     return (
         <Container className="mt-4">
@@ -33,6 +48,11 @@ const MyProfilePage = () => {
                         <Row md={6}><strong>Nombre:</strong> {nombre}</Row>
                         <Row md={6}><strong>Apellido:</strong> {apellido}</Row>
                         <Row md={6}><strong>DNI:</strong> {dni}</Row>
+                        {role === "PACIENTE" && (
+                            <Row>
+                                <Row md={6}><strong>Correo Electrónico:</strong> {mail}</Row>
+                            </Row>
+                        )}
                         <Row md={6}><strong>Rol:</strong> {role}</Row>
                         {role === "MEDICO" && (
                             <Row>
@@ -43,6 +63,19 @@ const MyProfilePage = () => {
                     </Row>
                 </Card.Body>
             </Card>
+
+            <div className="mt-3 text-start">
+                <Button variant="primary" onClick={() => setShowModal(true)}>
+                    Editar Perfil
+                </Button>
+            </div>
+
+            <EditarPerfilModal
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+                usuario={usuario}
+                onGuardar={handleGuardarCambios}
+            />
         </Container>
     );
 };

@@ -2,7 +2,7 @@ package ar.edu.unq.spring.controller.dto;
 
 import ar.edu.unq.spring.modelo.Paciente;
 
-public record CreatePacienteDTO(Long id, String nombre, String dni, String passwordPaciente, String apellido) {
+public record CreatePacienteDTO(Long id, String nombre, String dni, String passwordPaciente, String apellido, String mail) {
 
     public static CreatePacienteDTO desdeModelo(Paciente paciente) {
         return new CreatePacienteDTO(
@@ -10,7 +10,8 @@ public record CreatePacienteDTO(Long id, String nombre, String dni, String passw
                 paciente.getNombre(),
                 paciente.getDni(),
                 paciente.getPasswordPaciente(),
-                paciente.getApellido()
+                paciente.getApellido(),
+                paciente.getMail()
         );
     }
 

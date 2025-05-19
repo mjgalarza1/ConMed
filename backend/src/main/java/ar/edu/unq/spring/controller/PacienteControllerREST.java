@@ -80,6 +80,11 @@ public class PacienteControllerREST {
         return medicoService.allMedicos().stream().filter(medico -> medico.getEspecialidad().equalsIgnoreCase(especialidad)).map(MedicoDTO::desdeModelo).collect(Collectors.toSet());
     }
 
+    @GetMapping("/todosLosMails")
+    public List<String> obtenerTodosLosMails() {
+        return pacienteService.getMails();
+    }
+
     @GetMapping("/disponibilidadDeMedico/{id}")
     public ResponseEntity<Boolean> estaDisponibleElMedico(@PathVariable Long id) {
         return ResponseEntity.ok(this.medicoService.estaDisponible(id)) ;

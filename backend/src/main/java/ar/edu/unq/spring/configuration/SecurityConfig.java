@@ -49,7 +49,7 @@ public class SecurityConfig {
                                 // INICIO DE EJEMPLOS DE MUESTRA
                                 .requestMatchers("/pacienteDemo/**", "/pacientes/**", "/turnos/paciente/cancelar/*", "pacientes/medicosPorEspecialidad/")
                                 .hasAuthority("PACIENTE")
-                                .requestMatchers("/medicoDemo/**", "/medicos/**")
+                                .requestMatchers("/medicoDemo/**", "/medicos/**", "/medicos/getAllMatriculas/")
                                 .hasAuthority("MEDICO")
                                 .requestMatchers("/adminDemo/**", "/administrador/**", "/administrador/dni/", "administrador/quitarMedico/")
                                 .hasAuthority("ADMIN")

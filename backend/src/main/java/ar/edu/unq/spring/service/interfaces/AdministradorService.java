@@ -2,6 +2,7 @@ package ar.edu.unq.spring.service.interfaces;
 
 import ar.edu.unq.spring.modelo.Administrador;
 import ar.edu.unq.spring.modelo.Medico;
+import ar.edu.unq.spring.modelo.Paciente;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface AdministradorService {
     Medico agregarMedico(Medico medico);
     void quitarMedico(Long medicoId);
     List<Medico> allMedicos();
+    default void actualizarAdministrador(Long administradorId, Administrador administradorNuevo) {}
 }
