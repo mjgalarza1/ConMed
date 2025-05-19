@@ -121,6 +121,14 @@ export const getTurnosByDniMedico = (dniMedico) => {
     });
 };
 
+export const getEstaDisponibleElMedico = (idMedico) => {
+    return axiosService.get(`/pacientes/disponibilidadDeMedico/${idMedico}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+}
+
 export const getAllMedicos = () => {
     return axiosService.get(`/administrador/todosLosMedicos`, {
         headers: {
@@ -162,8 +170,9 @@ export const getAllUsuarios = () => {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-    });
-};
+    })};
+
+
 
 export const getAllMails = () => {
     return axiosService.get(`/pacientes/todosLosMails`, {

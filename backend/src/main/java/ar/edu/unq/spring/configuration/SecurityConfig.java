@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers("/","/login/**", "/registrarPaciente/**", "/turnos/paciente/*", "/turnos/medico/*", "/usuario/*")
+                                .requestMatchers("/","/login/**", "/registrarPaciente/**", "/turnos/paciente/*", "/turnos/medico/*", "/usuario/*", "/pacientes/disponibilidadDeMedico/**")
                                 .permitAll()
                                 // INICIO DE EJEMPLOS DE MUESTRA
                                 .requestMatchers("/pacienteDemo/**", "/pacientes/**", "/turnos/paciente/cancelar/*", "pacientes/medicosPorEspecialidad/")

@@ -84,4 +84,9 @@ public class PacienteControllerREST {
     public List<String> obtenerTodosLosMails() {
         return pacienteService.getMails();
     }
+
+    @GetMapping("/disponibilidadDeMedico/{id}")
+    public ResponseEntity<Boolean> estaDisponibleElMedico(@PathVariable Long id) {
+        return ResponseEntity.ok(this.medicoService.estaDisponible(id)) ;
+    }
 }
