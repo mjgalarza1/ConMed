@@ -24,9 +24,8 @@ const RegisterPage = () => {
     const handleDatosDeUsuario = async (dni) => {
         try {
             const response = await getPacienteByDni(dni);
-            const nombreCompleto = response.data.nombre.trim().split(" ");
-            const soloApellido = nombreCompleto.pop();
-            const soloNombre = nombreCompleto.join(" ");
+            const soloNombre = response.data.nombre;
+            const soloApellido = response.data.apellido;
             const usuario = {
                 id: response.data.id,
                 dni: response.data.dni,
