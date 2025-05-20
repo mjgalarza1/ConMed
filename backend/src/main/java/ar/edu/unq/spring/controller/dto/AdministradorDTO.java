@@ -15,4 +15,13 @@ public record AdministradorDTO(Long id, String nombre, String apellido,String dn
         administrador.setIdAdmin(this.id);
         return null;
     }
+
+    public Administrador aModeloUpdate(Long id) {
+        Administrador administrador = new Administrador();
+        administrador.setIdAdmin(id);
+        administrador.setNombre(this.nombre);
+        administrador.setApellido(this.apellido);
+
+        return administrador;
+    }
 }

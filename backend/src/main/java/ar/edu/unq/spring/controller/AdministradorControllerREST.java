@@ -4,11 +4,13 @@ import ar.edu.unq.spring.controller.dto.*;
 import ar.edu.unq.spring.jwt.service.AuthenticationService;
 import ar.edu.unq.spring.modelo.Administrador;
 import ar.edu.unq.spring.modelo.Medico;
+import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Role;
 import ar.edu.unq.spring.service.interfaces.AdministradorService;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
 import ar.edu.unq.spring.service.interfaces.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,6 +82,16 @@ public final class AdministradorControllerREST {
         );
 
         return todos;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizar(@PathVariable Long id, @RequestBody AdministradorDTO adminDTO) {
+        if (adminDTO.nombre() == null || adminDTO.nombre().trim().isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Faltan campos obligatorios");
+        }
+        Administrador administrador = adminDTO.aModeloUpdate(id);
+        administradorService.actualizarAdministrador(id, administrador);
+        return ResponseEntity.status(HttpStatus.OK).body(administrador);
     }
 
 }

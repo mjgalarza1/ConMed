@@ -4,6 +4,7 @@ import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Turno;
 import ar.edu.unq.spring.persistence.MedicoDAO;
+import ar.edu.unq.spring.persistence.TurnoDAO;
 import ar.edu.unq.spring.service.interfaces.MedicoService;
 import ar.edu.unq.spring.service.interfaces.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Autowired
     private TurnoService turnoService;
+    @Autowired
+    private TurnoDAO turnoDAO;
 
     @Override
     public List<Medico> allMedicos() {
@@ -85,6 +88,10 @@ public class MedicoServiceImpl implements MedicoService {
         return turnoDTO;
     }
 
+    public Boolean estaDisponible(Long medicoId) {
+        return turnoService.obtenerTurnosDisponiblesDeMedicoById(medicoId).size() > 0;
+    }
+
     @Override
     public void clearAll() {
         medicoDAO.deleteAll();
@@ -93,5 +100,10 @@ public class MedicoServiceImpl implements MedicoService {
     @Override
     public void eliminarMedico(Long medicoId) {
         medicoDAO.deleteById(medicoId);
+    }
+
+    @Override
+    public List<String> getAllMatriculas() {
+        return medicoDAO.getAllMatriculas();
     }
 }

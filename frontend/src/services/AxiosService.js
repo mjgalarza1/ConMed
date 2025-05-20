@@ -121,6 +121,14 @@ export const getTurnosByDniMedico = (dniMedico) => {
     });
 };
 
+export const getEstaDisponibleElMedico = (idMedico) => {
+    return axiosService.get(`/pacientes/disponibilidadDeMedico/${idMedico}`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+}
+
 export const getAllMedicos = () => {
     return axiosService.get(`/administrador/todosLosMedicos`, {
         headers: {
@@ -162,7 +170,48 @@ export const getAllUsuarios = () => {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
+    })};
+
+
+
+export const getAllMails = () => {
+    return axiosService.get(`/pacientes/todosLosMails`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
     });
 };
 
+export const getAllMatriculas = () => {
+    return axiosService.get(`/medicos/getAllMatriculas`, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
+
+export const actualizarPerfil = (usuario) => {
+    const { id, role } = usuario;
+
+    let endpoint = "";
+    switch (role) {
+        case "PACIENTE":
+            endpoint = `/pacientes/${id}`;
+            break;
+        case "MEDICO":
+            endpoint = `/medicos/${id}`;
+            break;
+        case "ADMIN":
+            endpoint = `/administrador/${id}`;
+            break;
+        default:
+            throw new Error("Rol no soportado");
+    }
+
+    return axiosService.put(endpoint, usuario, {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+};
 

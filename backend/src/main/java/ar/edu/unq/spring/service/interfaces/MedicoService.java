@@ -15,5 +15,8 @@ public interface MedicoService {
     void clearAll();
     void eliminarMedico(Long medicoId);
     TurnoDTO agregarTurno(Turno turno);
+    List<String> getAllMatriculas();
+    Boolean estaDisponible(Long medicoId);
+
 
 }

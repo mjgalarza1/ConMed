@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -68,5 +69,10 @@ public class MedicoControllerREST {
     public ResponseEntity<MedicoDTO> obtenerPorDni(@PathVariable String dni) {
         Medico medico = this.medicoService.recuperarMedicoPorDni(dni);
         return ResponseEntity.ok(MedicoDTO.desdeModelo(medico));
+    }
+
+    @GetMapping("/getAllMatriculas")
+    public List<String> getAllMatriculas() {
+        return medicoService.getAllMatriculas();
     }
 }

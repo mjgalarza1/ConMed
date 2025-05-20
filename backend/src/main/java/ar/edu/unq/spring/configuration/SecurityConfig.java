@@ -44,12 +44,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         req -> req
-                                .requestMatchers("/","/login/**", "/registrarPaciente/**", "/turnos/paciente/*", "/turnos/medico/*", "/usuario/*", "/conmed/email/enviar*")
+                                .requestMatchers("/","/login/**", "/registrarPaciente/**", "/turnos/paciente/*", "/turnos/medico/*", "/usuario/*", "/conmed/email/enviar*","/pacientes/disponibilidadDeMedico/**")
                                 .permitAll()
                                 // INICIO DE EJEMPLOS DE MUESTRA
                                 .requestMatchers("/pacienteDemo/**", "/pacientes/**", "/turnos/paciente/cancelar/*", "pacientes/medicosPorEspecialidad/")
                                 .hasAuthority("PACIENTE")
-                                .requestMatchers("/medicoDemo/**", "/medicos/**")
+                                .requestMatchers("/medicoDemo/**", "/medicos/**", "/medicos/getAllMatriculas/")
                                 .hasAuthority("MEDICO")
                                 .requestMatchers("/adminDemo/**", "/administrador/**", "/administrador/dni/", "administrador/quitarMedico/")
                                 .hasAuthority("ADMIN")
