@@ -1,8 +1,8 @@
 package ar.edu.unq.spring.controller;
 
-import ar.edu.unq.spring.modelo.EmailRequest;
-import ar.edu.unq.spring.service.impl.EmailService;
+import ar.edu.unq.spring.service.impl.MailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.*;
 public class EmailController {
 
     @Autowired
-    private EmailService emailService;
+    private MailSenderService mailerSendService;
 
     @PostMapping("/enviar")
-    public String enviarCorreoPost(@RequestBody EmailRequest request) {
-        emailService.enviarCorreo(request.getDestinatario(), request.getAsunto(), request.getMensaje());
-        return "Correo enviado a " + request.getDestinatario();
+    public ResponseEntity<String> testMail() {
+        try {
+            mailerSendService.enviarCorreo("yaxotok443@frisbook.com", "Prueba de correo API", "Se envia correo desde backend");
+            return ResponseEntity.ok("Correo enviado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Fallo: " + e.getMessage());
+        }
     }
 
 }
