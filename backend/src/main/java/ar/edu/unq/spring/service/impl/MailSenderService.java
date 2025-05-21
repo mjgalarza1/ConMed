@@ -18,7 +18,8 @@ public class MailSenderService {
         String json = """
             {
               "from": {
-                "email": "%s"
+                "email": "%s",
+                "name": "ConMed"
               },
               "to": [
                 {

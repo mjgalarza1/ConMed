@@ -15,7 +15,7 @@ public class EmailController {
     @PostMapping("/enviar")
     public ResponseEntity<String> testMail() {
         try {
-            mailerSendService.enviarCorreo("yaxotok443@frisbook.com", "Prueba de correo API", "Se envia correo desde backend");
+            mailerSendService.enviarCorreo("mos.a.yj.ano.b.o@gmail.com", "Prueba de correo API", "Se envia correo desde backend");
             return ResponseEntity.ok("Correo enviado correctamente");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Fallo: " + e.getMessage());
