@@ -1,26 +1,30 @@
 package ar.edu.unq.spring.controller;
 
-import ar.edu.unq.spring.service.impl.MailSenderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import ar.edu.unq.spring.service.impl.EmailService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/conmed/email")
 public class EmailController {
 
-    @Autowired
-    private MailSenderService mailerSendService;
+    private final EmailService emailService;
 
-    @PostMapping("/enviar")
-    public ResponseEntity<String> testMail() {
-        try {
-            mailerSendService.enviarCorreo("yaxotok443@frisbook.com", "Prueba de correo API", "Se envia correo desde backend");
-            return ResponseEntity.ok("Correo enviado correctamente");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Fallo: " + e.getMessage());
-        }
+    public EmailController(EmailService emailService) {
+        this.emailService = emailService;
     }
 
+    @PostMapping("/enviar")
+    public ResponseEntity<String> enviarCorreo() {
+        emailService.enviarCorreo(
+                "tresesodola-1497@yopmail.com",
+                "Turno Confirmado",
+                "<h1>Tu turno ha sido confirmado</h1><p>Gracias por usar ConMed</p>"
+        );
+        return ResponseEntity.ok("Correo enviado");
+    }
 }
+
 
