@@ -16,34 +16,39 @@ public class MailSenderService {
 
     public void enviarCorreo(String to, String subject, String text) throws Exception {
         String json = """
+        {
+          "from": {
+            "email": "%s",
+            "name": "ConMed"
+          },
+          "to": [
             {
-              "from": {
-                "email": "%s",
-                "name": "ConMed"
-              },
-              "to": [
-                {
-                  "email": "%s"
-                }
-              ],
-              "subject": "%s",
-              "text": "%s"
+              "email": "%s"
             }
-            """.formatted(fromEmail, to, subject, text);
+          ],
+          "subject": "%s",
+          "text": "%s"
+        }
+        """.formatted(fromEmail, to, subject, text);
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
 
         Request request = new Request.Builder()
                 .url("https://api.mailersend.com/v1/email")
-                .post(RequestBody.create(json, MediaType.parse("application/json")))
+                .post(body)
                 .addHeader("Authorization", "Bearer " + apiToken)
                 .addHeader("Content-Type", "application/json")
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
+            String responseBody = response.body() != null ? response.body().string() : "";
             if (!response.isSuccessful()) {
-                throw new RuntimeException("Error al enviar email: " + response.code() + " - " + response.body().string());
+                throw new RuntimeException("Error al enviar email: " + response.code() + " - " + responseBody);
             } else {
                 System.out.println("✅ Correo enviado correctamente");
             }
         }
     }
+
 }
+

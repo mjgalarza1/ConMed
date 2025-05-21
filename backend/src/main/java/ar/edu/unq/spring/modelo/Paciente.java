@@ -46,4 +46,7 @@ public class Paciente {
     @ToString.Exclude
     private Set<TurnoReservado> turnos;
 
+    public void setPassword(String nuevaPassword) {
+        this.passwordPaciente = nuevaPassword;
+    }
 }

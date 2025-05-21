@@ -1,10 +1,8 @@
 package ar.edu.unq.spring.service.interfaces;
 
-import ar.edu.unq.spring.modelo.Medico;
 import ar.edu.unq.spring.modelo.Paciente;
 
 import java.util.List;
-import java.util.Set;
 
 public interface PacienteService {
     List<Paciente> allPacientes();
@@ -16,4 +14,8 @@ public interface PacienteService {
     void eliminarPaciente(Long pacienteId);
     void clearAll();
     List<String> getMails();
+
+    Paciente recuperarPacientePorEmail(String email);
+
+    Paciente actualizarPassword(Paciente paciente, String hashedPassword);
 }

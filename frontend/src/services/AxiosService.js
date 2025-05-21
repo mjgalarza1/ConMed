@@ -59,7 +59,6 @@ export const getMedicoByDni = (dniMedico) => {
     });
 };
 
-//Para futura implementación de admin
 export const getAdministradorByDni = (dniAdministrador) => {
     return axiosService.get(`/administrador/dni/${dniAdministrador}`, {
         headers: {
@@ -191,7 +190,7 @@ export const getAllMatriculas = () => {
 };
 
 export const actualizarPerfil = (usuario) => {
-    const { id, role } = usuario;
+    const {id, role} = usuario;
 
     let endpoint = "";
     switch (role) {
@@ -213,5 +212,9 @@ export const actualizarPerfil = (usuario) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
     });
-};
+}
 
+export const enviarMailRestablecimiento = (email) => {
+        return axiosService
+            .post('/conmed/email/enviarContrasenia', {email});
+};

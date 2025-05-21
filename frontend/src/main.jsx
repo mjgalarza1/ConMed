@@ -12,6 +12,7 @@ import TurnosDelMedicoPage from "./pages/TurnosDelMedicoPage.jsx";
 import TodosLosMedicosPage from "./pages/TodosLosMedicosPage.jsx";
 import MyProfilePage from "./pages/MyProfilePage.jsx";
 import TodosLosUsuariosPage from './pages/TodosLosUsuariosPage.jsx';
+import RestablecerContraseniaForm from "./components/forms/LoginForm/RestablecerContraseniaForm.jsx";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path: "/todosLosUsuarios",
                 element: <TodosLosUsuariosPage />
+            },
+            {
+                path: "/RestablecerContrasenia",
+                element: <RestablecerContraseniaForm />
             },
             {
                 path: "/miPerfil",
