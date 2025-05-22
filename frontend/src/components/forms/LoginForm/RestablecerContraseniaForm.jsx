@@ -21,12 +21,9 @@ const RestablecerContraseniaForm = () => {
         try {
             await enviarMailRestablecimiento(email);
             mostrarMensajeExito("Se ha enviado una nueva contraseña a tu correo.");
+            // eslint-disable-next-line no-unused-vars
         } catch (error) {
-            if (error.response && error.response.status === 404) {
-                mostrarMensajeError("No se encontró una cuenta asociada a este correo");
-            } else {
-                mostrarMensajeError("No se encontró una cuenta asociada a este correo");
-            }
+            mostrarMensajeError("No se encontró una cuenta asociada a este correo");
         }
     };
 
