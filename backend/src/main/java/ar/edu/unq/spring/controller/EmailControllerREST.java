@@ -44,8 +44,21 @@ public class EmailControllerREST {
         paciente.setPassword(hashedPassword);
         pacienteService.actualizarPassword(paciente, hashedPassword);
 
+        String bodyHtml = String.format(
+                "<html><body>" +
+                        "<h2 style='color: #2c3e50;'>Restablecimiento de Contraseña</h2>" +
+                        "<p>Hola,</p>" +
+                        "<p>Tu nueva <strong>contraseña temporal</strong> es:</p>" +
+                        "<p style='font-size: 18px; color: #e74c3c; font-weight: bold;'>%s</p>" +
+                        "<p>Por razones de seguridad, te recomendamos cambiarla al iniciar sesión.</p>" +
+                        "</body></html>",
+                nuevaPassword
+        );
+
+
+
         try {
-            emailService.enviarCorreo(email, "Contraseña temporal - ConMed", "Tu nueva contraseña temporal es: " + nuevaPassword + " Te recomendamos cambiarla al ingresar.");
+            emailService.enviarCorreo(email, "Contraseña temporal - ConMed", bodyHtml);
             return ResponseEntity.ok("Se ha enviado una nueva contraseña a tu correo.");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Fallo: " + e.getMessage());
