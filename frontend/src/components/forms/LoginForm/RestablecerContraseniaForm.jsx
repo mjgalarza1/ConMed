@@ -25,7 +25,7 @@ const RestablecerContraseniaForm = () => {
             if (error.response && error.response.status === 404) {
                 mostrarMensajeError("No se encontró una cuenta asociada a este correo");
             } else {
-                mostrarMensajeError("Ocurrió un error inesperado");
+                mostrarMensajeError("No se encontró una cuenta asociada a este correo");
             }
         }
     };
