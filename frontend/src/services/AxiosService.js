@@ -218,3 +218,11 @@ export const enviarMailRestablecimiento = (email) => {
         return axiosService
             .post('/conmed/email/enviarContrasenia', {email});
 };
+
+export const changePassOldForPassNew = (dni, contraseñaActual, nuevaContraseña) => {
+    return axiosService.post('/usuario/cambiar-contraseña', {
+        dni,
+        contraseñaActual,
+        nuevaContraseña
+    });
+}

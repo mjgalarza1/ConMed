@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.service.impl;
 
+import ar.edu.unq.spring.controller.utils.Validator;
 import ar.edu.unq.spring.modelo.Paciente;
 import ar.edu.unq.spring.modelo.Usuario;
 import ar.edu.unq.spring.persistence.PacienteDAO;
@@ -40,7 +41,6 @@ public class PacienteServiceImpl implements PacienteService {
         usuarioDAO.save(usuario);
         return pacienteDAO.save(paciente);
     }
-
 
     @Override
     public Paciente recuperarPacientePorId(Long pacienteId) {

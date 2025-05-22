@@ -13,6 +13,7 @@ import TodosLosMedicosPage from "./pages/TodosLosMedicosPage.jsx";
 import MyProfilePage from "./pages/MyProfilePage.jsx";
 import TodosLosUsuariosPage from './pages/TodosLosUsuariosPage.jsx';
 import RestablecerContraseniaForm from "./components/forms/LoginForm/RestablecerContraseniaForm.jsx";
+import CambiarContraseniaPage from "./pages/CambiarContraseñaPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: "/miPerfil",
                 element: <MyProfilePage/>
+            },
+            {
+                path: "/cambiar-contraseña",
+                element: <CambiarContraseniaPage/>
             }
         ]
     }

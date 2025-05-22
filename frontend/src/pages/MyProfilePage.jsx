@@ -64,11 +64,18 @@ const MyProfilePage = () => {
                 </Card.Body>
             </Card>
 
-            <div className="mt-3 text-start">
-                <Button variant="primary" onClick={() => setShowModal(true)}>
-                    Editar Perfil
-                </Button>
+            <div className="mt-3 d-flex justify-content-between">
+                <div className="mt-3 d-flex gap-2">
+                    <Button variant="primary" onClick={() => setShowModal(true)}>
+                        Editar Perfil
+                    </Button>
+                    <Button variant="primary" onClick={() => navigate("/cambiar-contraseña")}>
+                        Cambiar Contraseña
+                    </Button>
+                </div>
+
             </div>
+
 
             <EditarPerfilModal
                 show={showModal}
