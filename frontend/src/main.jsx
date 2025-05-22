@@ -14,6 +14,8 @@ import MyProfilePage from "./pages/MyProfilePage.jsx";
 import TodosLosUsuariosPage from './pages/TodosLosUsuariosPage.jsx';
 import RestablecerContraseniaForm from "./components/forms/LoginForm/RestablecerContraseniaForm.jsx";
 import CambiarContraseniaPage from "./pages/CambiarContraseñaPage.jsx";
+import ProtectedRoute from "./components/basic/ProtectedRoute.jsx";
+import PublicRoute from "./components/basic/PublicRoute.jsx";
 
 const router = createBrowserRouter([
     {
@@ -21,47 +23,29 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <HomePage />,
+                element: <HomePage />
             },
+
             {
-                path: "/login",
-                element: <LoginPage />
+                element: <PublicRoute />,
+                children: [
+                    { path: "/login", element: <LoginPage /> },
+                    { path: "/register", element: <RegisterPage /> },
+                    { path: "/RestablecerContrasenia", element: <RestablecerContraseniaForm /> }
+                ]
             },
+
             {
-                path: "/register",
-                element: <RegisterPage />
-            },
-            {
-                path: "/medicosDisponibles",
-                element: <MedicosDisponiblesPage />
-            },
-            {
-                path: "/reservasDeTurnos",
-                element: <ReservasDeTurnosPage />
-            },
-            {
-                path: "/turnosDelMedico",
-                element: <TurnosDelMedicoPage />
-            },
-            {
-                path: "/todosLosMedicos",
-                element: <TodosLosMedicosPage />
-            },
-            {
-                path: "/todosLosUsuarios",
-                element: <TodosLosUsuariosPage />
-            },
-            {
-                path: "/RestablecerContrasenia",
-                element: <RestablecerContraseniaForm />
-            },
-            {
-                path: "/miPerfil",
-                element: <MyProfilePage/>
-            },
-            {
-                path: "/cambiar-contraseña",
-                element: <CambiarContraseniaPage/>
+                element: <ProtectedRoute />,
+                children: [
+                    { path: "/medicosDisponibles", element: <MedicosDisponiblesPage /> },
+                    { path: "/reservasDeTurnos", element: <ReservasDeTurnosPage /> },
+                    { path: "/turnosDelMedico", element: <TurnosDelMedicoPage /> },
+                    { path: "/todosLosMedicos", element: <TodosLosMedicosPage /> },
+                    { path: "/todosLosUsuarios", element: <TodosLosUsuariosPage /> },
+                    { path: "/miPerfil", element: <MyProfilePage /> },
+                    { path: "/cambiar-contraseña", element: <CambiarContraseniaPage /> }
+                ]
             }
         ]
     }
