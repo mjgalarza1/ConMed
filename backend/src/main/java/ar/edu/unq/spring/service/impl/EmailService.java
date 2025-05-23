@@ -1,7 +1,6 @@
 package ar.edu.unq.spring.service.impl;
-import ar.edu.unq.spring.service.interfaces.PacienteService;
-import ar.edu.unq.spring.service.interfaces.TurnoService;
-import okhttp3.*;
+import ar.edu.unq.spring.modelo.Paciente;
+import ar.edu.unq.spring.modelo.Turno;
 import org.springframework.http.*;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -13,15 +12,6 @@ public class EmailService {
 
     private final String API_URL = "https://api.brevo.com/v3/smtp/email";
     private final String API_KEY = "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";
-
-    private final OkHttpClient client = new OkHttpClient();
-    private final PacienteService pacienteService;
-    private final TurnoService turnoService;
-
-    public EmailService(PacienteService pacienteService, TurnoService turnoService) {
-        this.pacienteService = pacienteService;
-        this.turnoService = turnoService;
-    }
 
     public void enviarCorreo(String destinatario, String asunto, String contenidoHtml) {
         RestTemplate restTemplate = new RestTemplate();
@@ -57,12 +47,45 @@ public class EmailService {
         }
     }
 
-//    public void enviarReservaTurnoPaciente(Long idPaciente, Long idTurno) {
-//        Paciente pacienteTurno = pacienteService.recuperarPacientePorId(idPaciente);
-//        Turno turnoReservado = turnoService.obtenerTurnoById(idTurno);
-//
-//        enviarCorreo(pacienteTurno.getMail(), "Turno reservado exitosamente");
-//
-//
-//    }
+    public void enviarEstadoTurnoPaciente(Paciente pacienteTurno, Turno turnoReservado, String estadoTurno) {
+
+        String nombrePaciente = pacienteTurno.getNombre() + " " + pacienteTurno.getApellido();
+        String nombreMedico = turnoReservado.getMedico().getNombre() + " " + turnoReservado.getMedico().getApellido();
+        String especialidad = turnoReservado.getMedico().getEspecialidad();
+        String fecha = turnoReservado.getFecha().toString();
+        String hora = turnoReservado.getHora().toString();
+        String estadoColor;
+        String estadoTexto;
+        String asunto;
+
+        if(estadoTurno.equals("RESERVADO")){
+            estadoColor = "green";
+            estadoTexto = "RESERVADO";
+            asunto = "Turno reservado exitosamente";
+        }
+        else{
+            estadoColor = "red";
+            estadoTexto = "CANCELADO";
+            asunto = "Aviso turno cancelado";
+        }
+
+        String bodyEmail = String.format(
+                "<html><body>" +
+                        "<p><strong>Nombre del Paciente:</strong> %s</p>" +
+                        "<p><strong>Nombre del Médico:</strong> %s</p>" +
+                        "<p><strong>Especialidad:</strong> %s</p>" +
+                        "<p><strong>Fecha:</strong> %s</p>" +
+                        "<p><strong>Hora:</strong> %s</p>" +
+                        "<p><strong>Estado:</strong> <span style='color: %s; font-weight: bold;'>%s</span></p>" +
+                        "</body></html>",
+                nombrePaciente,
+                nombreMedico,
+                especialidad,
+                fecha,
+                hora,
+                estadoColor,
+                estadoTexto
+        );
+        enviarCorreo(pacienteTurno.getMail(), asunto, bodyEmail);
+    }
 }

@@ -33,7 +33,6 @@ public class TurnoControllerREST {
     public ResponseEntity<?> reservarTurno(@RequestBody ReservaDeTurnoDTO reservaDTO){
         Turno nuevoTurno = turnoService.obtenerTurnoById(reservaDTO.idTurno());
         turnoService.reservarTurno(reservaDTO.idPaciente(), nuevoTurno);
-        //mailSenderService.enviarReservaTurnoPaciente(reservaDTO.idPaciente(), reservaDTO.idTurno());
         return ResponseEntity.status(HttpStatus.CREATED).body(TurnoDTO.desdeModelo(nuevoTurno));
     }
 
