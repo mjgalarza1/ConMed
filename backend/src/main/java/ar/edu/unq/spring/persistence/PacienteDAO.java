@@ -20,4 +20,7 @@ public interface PacienteDAO extends JpaRepository<Paciente, Long> {
 
     @Query("SELECT p.mail FROM Paciente p")
     List<String> getMails();
+
+    @Query("SELECT p FROM Paciente p WHERE p.mail = ?1")
+    Paciente findByEmail(String email);
 }

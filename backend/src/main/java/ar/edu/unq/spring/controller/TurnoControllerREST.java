@@ -5,6 +5,7 @@ import ar.edu.unq.spring.controller.dto.TurnoDTO;
 import ar.edu.unq.spring.controller.dto.TurnoReservadoDTO;
 import ar.edu.unq.spring.controller.dto.TurnosMedicoDTO;
 import ar.edu.unq.spring.modelo.Turno;
+import ar.edu.unq.spring.service.impl.EmailService;
 import ar.edu.unq.spring.service.interfaces.TurnoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,12 @@ import java.util.stream.Collectors;
 public class TurnoControllerREST {
 
     private final TurnoService turnoService;
+    private final EmailService emailService;
 
-    public TurnoControllerREST(TurnoService turnoService){
+    public TurnoControllerREST(TurnoService turnoService, EmailService emailService){
+
         this.turnoService = turnoService;
+        this.emailService = emailService;
     }
 
     @PostMapping("/reservar")

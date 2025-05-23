@@ -1,5 +1,6 @@
 import {Button, Form} from "react-bootstrap";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 const LoginForm = ({handleSubmitLogin}) => {
 
@@ -42,6 +43,13 @@ const LoginForm = ({handleSubmitLogin}) => {
                 </Form.Group>
 
             </div>
+
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <Link to="/RestablecerContrasenia" className="text-decoration-none text-primary">
+                    ¿Olvidaste tu contraseña?
+                </Link>
+            </div>
+
             <Button variant="primary" type="submit">Iniciar sesión</Button>
         </Form>
     );

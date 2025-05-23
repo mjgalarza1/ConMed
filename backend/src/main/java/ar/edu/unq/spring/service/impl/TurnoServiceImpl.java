@@ -28,12 +28,14 @@ public class TurnoServiceImpl implements TurnoService {
     private final TurnoReservadoDAO turnoReservadoDAO;
     private final PacienteDAO pacienteDAO;
     private final MedicoDAO medicoDAO;
+    private final EmailService emailService;
 
-    public TurnoServiceImpl(TurnoDAO turnoDAO, TurnoReservadoDAO turnoReservadoDAO, PacienteDAO pacienteDAO, MedicoDAO medicoDAO) {
+    public TurnoServiceImpl(TurnoDAO turnoDAO, TurnoReservadoDAO turnoReservadoDAO, PacienteDAO pacienteDAO, MedicoDAO medicoDAO, EmailService emailService) {
         this.turnoDAO = turnoDAO;
         this.turnoReservadoDAO = turnoReservadoDAO;
         this.pacienteDAO = pacienteDAO;
         this.medicoDAO = medicoDAO;
+        this.emailService = emailService;
     }
 
     @Override
@@ -99,6 +101,7 @@ public class TurnoServiceImpl implements TurnoService {
 
         turnoDAO.save(turno);
         turnoReservadoDAO.save(turnoReservado);
+        emailService.enviarEstadoTurnoPaciente(pacienteActual, turno, "RESERVADO");
 
         return turno;
     }
@@ -113,8 +116,14 @@ public class TurnoServiceImpl implements TurnoService {
         }
 
         turnoRecuperado.setDisponibilidad(TurnoDisponibilidad.DISPONIBLE);
+
+        //
+        TurnoReservado turnoReservado = turnoReservadoDAO.findById(turnoRecuperado.getId())
+                .orElseThrow(() -> new IllegalArgumentException("No existe ningún turno con este ID: " + turnoRecuperado.getId()));
+        //
         turnoReservadoDAO.deleteTurnoReservadoById(idTurno);
         turnoDAO.save(turnoRecuperado);
+        emailService.enviarEstadoTurnoPaciente(turnoReservado.getPaciente(), turnoRecuperado, "CANCELADO");
 
         return turnoRecuperado;
     }

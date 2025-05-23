@@ -1,5 +1,6 @@
 package ar.edu.unq.spring.controller;
 
+import ar.edu.unq.spring.controller.dto.CambiarContraseñaDTO;
 import ar.edu.unq.spring.controller.dto.CreatePacienteDTO;
 import ar.edu.unq.spring.controller.dto.UsuarioDTO;
 import ar.edu.unq.spring.jwt.modelo.AuthenticationResponse;
@@ -36,4 +37,11 @@ public class AuthenticationControllerREST {
         Usuario usuario = this.authenticationService.recuperarUsuarioPorDni(dni);
         return ResponseEntity.ok(UsuarioDTO.desdeModelo(usuario));
     }
+
+    @PostMapping("/usuario/cambiar-contraseña")
+    public ResponseEntity<?> cambiarContraseña(@RequestBody CambiarContraseñaDTO dto) {
+        authenticationService.cambiarContraseña(dto.dni(), dto.contraseñaActual(), dto.nuevaContraseña());
+        return ResponseEntity.ok("Contraseña actualizada con éxito.");
+    }
+
 }

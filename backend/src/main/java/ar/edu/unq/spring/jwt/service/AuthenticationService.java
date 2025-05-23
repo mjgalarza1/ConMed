@@ -113,4 +113,27 @@ public class AuthenticationService {
 
         usuarioDAO.delete(usuario);
     }
+
+    public void cambiarContraseña(String dni, String contraseñaActual, String nuevaContraseña) {
+        Usuario usuario = usuarioDAO.findByDni(dni);
+        Paciente paciente = pacienteDAO.findByDni(dni);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuario no encontrado.");
+        }
+
+        if (!passwordEncoder.matches(contraseñaActual, usuario.getPassword())) {
+            throw new IllegalArgumentException("La contraseña actual es incorrecta.");
+        }
+
+        if (passwordEncoder.matches(nuevaContraseña, usuario.getPassword())) {
+            throw new IllegalArgumentException("La nueva contraseña no puede ser igual a la actual.");
+        }
+
+        usuario.setPassword(passwordEncoder.encode(nuevaContraseña));
+        paciente.setPassword(passwordEncoder.encode(nuevaContraseña));
+        usuarioDAO.save(usuario);
+        pacienteDAO.save(paciente);
+    }
+
+
 }
