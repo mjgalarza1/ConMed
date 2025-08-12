@@ -32,13 +32,13 @@ _(NOTA: Para el frontend, se decidió hacer el diseño completo de la página ut
 
 ## 🧰 Otras herramientas
 - **Jira**: Para gestionar el desarrollo del producto, se utilizó la plataforma **Jira**, donde se realizaron las siguientes tareas:
-  - **Sprint Planning**: El equipo elegía las historias de usuario a trabajar en el sprint actual y se definía un objetivo claro, para que el mismo pueda arrancar el sprint con foco y compromiso. Además, se **estimaban los puntos** de cada historia de usuario haciendo uso del **Planning Poker**, para luego calcular la **velocidad** del equipo.
+  - **Sprint Planning**: El equipo elegía las **historias de usuario** a trabajar en el sprint actual y se **definía un objetivo claro**, para que el mismo pueda arrancar el sprint con foco y compromiso. Además, se **estimaban los puntos** de cada historia de usuario utilizando la técnica de **Planning Poker**, para luego calcular y mantener actualizada la **velocidad** del equipo.
   - **Refinamiento**: El Product Owner se encargaba de manipular el Product Backlog, creando, editando, o eliminando las historias de usuario necesarias, de cara a los futuros sprints, ordenándolos por prioridad siguiendo la Ley de Pareto.
   - **Reporte de Bugs**: Cuando los Testers encontraban algún bug, lo reportaban por este medio, y los desarrolladores se encargaban de solucionarlos.
 
-- **Miro**: Para realizar el evento del **Sprint Retrospective**, se utilizó la plataforma **Miro**, donde el Scrum Master dejaba armadas las actividades para realizar en el evento para cada sprint, y así mejorar como equipo mediante las cosas positivas y negativas para no cometer los mismos errores.
+- **Miro**: Para realizar el evento del **Sprint Retrospective**, se utilizó la plataforma **Miro**, donde el Scrum Master armaba las actividades a realizar en la retrospectiva en cada sprint, y así mejorar como equipo mediante las cosas positivas y negativas para no cometer los mismos errores. También se utilizó para armar el [User Story Mapping del producto](github-assets/conmed-usm.png).
 - **Google Sheets**: Se utilizó para armar una planilla con el [test plan de cada sprint](https://docs.google.com/spreadsheets/d/1i60LmYcsdhR-yj7t0_Hy7Zn4ZnUoEwvwH1ZPHxQGDWA/edit?usp=sharing).
-- **Google Docs**: Se utilizó para armar un **reporte de seguimiento** de cada sprint, para mantener un seguimiento de cada avance realizado.
+- **Google Docs**: Se utilizó para armar un [reporte de seguimiento](https://docs.google.com/document/d/1BLe3DC6T0vAGVVtNHr_aYffZMy7i2qm2WYo8MI-0ZfE/edit?usp=sharing) de cada sprint, para mantener un seguimiento de cada avance realizado.
 - **Brevo**: Se utilizó para el **envío automático de emails** para los pacientes.
 
 ## 📥 ¿Cómo instalar el proyecto?
@@ -51,17 +51,17 @@ git clone https://github.com/mjgalarza1/conmed.git
 3. Configurar Brevo:
    - Crear cuenta y obtener API Key desde el panel de Brevo.
    - Guardar la clave en `backend/src/main/resources/application.properties`.
-4. Instalar las dependencias necesarias del frontend abriendo una terminal, ubicarse en la carpeta "frontend", y ejecutar el siguiente comando
+4. Instalar las dependencias necesarias del frontend abriendo una terminal, ubicarse en la carpeta "frontend", y ejecutar el siguiente comando:
 ```
 npm install
 ```
 ## 🚀 ¿Cómo ejecutar las aplicaciones?
 ### API
 - Para ejecutar la API, ejecutar `ConmedSpringApp.java` que se encuentra dentro de `backend/src/main/java/ar.edu.unq.spring`.<br>
-- La API se levantará de manera local en `http://localhost:8080`
+- La API se levantará de forma local en `http://localhost:8080`
 ### WEB
-1. Para levantar la aplicación web, abrir una terminal, ubicarse en la carpeta `frontend`, y ejecutar el siguiente comando
+1. Para levantar la aplicación web, abrir una terminal, ubicarse en la carpeta `frontend`, y ejecutar el siguiente comando:
 ```
 npm run dev
 ```
-- La aplicación web se levantará de manera local en `http://localhost:5173`
+- La aplicación web se levantará de forma local en `http://localhost:5173`
