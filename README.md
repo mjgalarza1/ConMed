@@ -11,12 +11,12 @@
 ## 📝 Detalles del proyecto
 Para la realización de este proyecto, se puso en práctica la metodología ágil **SCRUM**, aprendidas en la materia de **Elementos de Ingeniería de Software** en la **Universidad Nacional de Quilmes**.
 
-### 👥 Este fue un trabajo hecho en equipo, conformado por los siguientes estudiantes:
-- **Kevin Stanley**
-- **Ariel Murua**
-- **Mauricio Velazquez**
-- **Matias Galarza**
-- **Martin Wolf**
+### 🤝 Este trabajo fue hecho en equipo, conformado por los siguientes estudiantes:
+👤 [**Kevin Stanley**](https://github.com/KevinStanleyUNQV2)<br>
+👤 [**Ariel Murua**](https://github.com/amurua)<br>
+👤 [**Mauricio Velazquez**](https://github.com/Mauricio-Velazquez)<br>
+👤 [**Matías Galarza**](https://github.com/mjgalarza1)<br>
+👤 [**Martin Wolf**](https://github.com/martinlwolf)
 
 Los roles de SCRUM **iban rotando por cada sprint**, por lo que todos los miembros del equipo pudieron poner en práctica los siguientes roles:
 - **Scrum Master**
@@ -55,7 +55,7 @@ git clone https://github.com/mjgalarza1/conmed.git
 ```
 npm install
 ```
-## ¿Cómo ejecutar las aplicaciones?
+## 🚀 ¿Cómo ejecutar las aplicaciones?
 ### API
 - Para ejecutar la API, ejecutar `ConmedSpringApp.java` que se encuentra dentro de `backend/src/main/java/ar.edu.unq.spring`.<br>
 - La API se levantará de manera local en `http://localhost:8080`
