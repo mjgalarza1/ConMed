@@ -8,10 +8,10 @@
 ✔️ Diferente a los métodos tradicionales, **evita demoras** y **optimiza la organización**.<br>
 ✔️ _Nuestro proyecto ofrece una plataforma intuitiva que **mejora la experiencia del paciente** y **el profesional de la salud**._
 
-## Detalles del proyecto
+## 📝 Detalles del proyecto
 Para la realización de este proyecto, se puso en práctica la metodología ágil **SCRUM**, aprendidas en la materia de **Elementos de Ingeniería de Software** en la **Universidad Nacional de Quilmes**.
 
-### Este fue un trabajo que fue realizado por el siguiente equipo:
+### 👥 Este fue un trabajo que fue realizado por el siguiente equipo:
 - **Kevin Stanley**
 - **Ariel Murua**
 - **Mauricio Velazquez**
@@ -30,7 +30,7 @@ Los roles de SCRUM **iban rotando por cada sprint**, por lo que todos los miembr
 
 _(NOTA: Para el frontend, se decidió hacer el diseño completo de la página utilizando **React Bootstrap**, no solo para acelerar el desarrollo del front, sino también para facilitarle a aquellos quienes no tenían mucha experiencia en el front)._
 
-## 🛠️ Otras herramientas
+## 🧰 Otras herramientas
 - **Jira**: Para gestionar el desarrollo del producto, se utilizó la plataforma **Jira**, donde se realizaron las siguientes tareas:
   - **Sprint Planning**: El equipo elegía las historias de usuario a trabajar en el sprint actual y se definía un objetivo claro, para que el mismo pueda arrancar el sprint con foco y compromiso. Además, se **estimaban los puntos** de cada historia de usuario haciendo uso del **Planning Poker**, para luego calcular la **velocidad** del equipo.
   - **Refinamiento**: El Product Owner se encargaba de manipular el Product Backlog, creando, editando, o eliminando las historias de usuario necesarias, de cara a los futuros sprints, ordenándolos por prioridad siguiendo la Ley de Pareto.
