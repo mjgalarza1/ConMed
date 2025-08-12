@@ -11,7 +11,7 @@
 ## 📝 Detalles del proyecto
 Para la realización de este proyecto, se puso en práctica la metodología ágil **SCRUM**, aprendidas en la materia de **Elementos de Ingeniería de Software** en la **Universidad Nacional de Quilmes**.
 
-### 👥 Este fue un trabajo que fue realizado por el siguiente equipo:
+### 👥 Este fue un trabajo hecho en equipo, conformado por los siguientes estudiantes:
 - **Kevin Stanley**
 - **Ariel Murua**
 - **Mauricio Velazquez**
